@@ -35,7 +35,7 @@ export const Route = createFileRoute("/brands/$brand")({
 function BrandDetail() {
   const { brand } = Route.useLoaderData();
   const list = products.filter((p) => p.brand === brand.slug);
-  const detail = brandDetails[brand.slug];
+  const detail = brandDetails[brand.slug as keyof typeof brandDetails];
 
   return (
     <Layout>
