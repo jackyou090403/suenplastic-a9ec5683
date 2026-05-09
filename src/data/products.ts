@@ -1,5 +1,17 @@
+export type BrandSlug =
+  | "polyplastics"
+  | "asahi-kasei"
+  | "ccp"
+  | "teijin"
+  | "celanese"
+  | "solvay"
+  | "umg"
+  | "lati"
+  | "ajp"
+  | "usi";
+
 export type Brand = {
-  slug: "polyplastics" | "asahi-kasei" | "ccp";
+  slug: BrandSlug;
   name: string;
   nameEn: string;
   origin: string;
@@ -9,7 +21,7 @@ export type Brand = {
 
 export type Product = {
   slug: string;
-  brand: Brand["slug"];
+  brand: BrandSlug;
   series: string;
   material: string; // POM, PA66, etc.
   grades: string[];
@@ -44,6 +56,69 @@ export const brands: Brand[] = [
     tagline: "亚洲工程塑料一体化制造商",
     description:
       "台湾长春集团（CCP）是全球少数从单体到改性料垂直一体化的工程塑料制造商，主力产品涵盖 LUPOX® PBT、LUPOY® PC、PA6/PA66、EVA/EVOH、环氧树脂等，以稳定供货与高性价比著称。",
+  },
+  {
+    slug: "teijin",
+    name: "帝人",
+    nameEn: "Teijin",
+    origin: "日本",
+    tagline: "高性能 PC 与复合材料专家",
+    description:
+      "日本帝人株式会社是全球领先的高性能聚碳酸酯生产商，旗下 PANLITE® PC、MULTILON® PC/ABS、PANLITE® AM 等系列在光学、汽车车灯、电子电器、医疗等领域具有标杆地位。",
+  },
+  {
+    slug: "celanese",
+    name: "塞拉尼斯",
+    nameEn: "Celanese",
+    origin: "美国",
+    tagline: "全球工程材料巨头",
+    description:
+      "美国塞拉尼斯（Celanese）是全球领先的工程材料公司，主营 Hostaform® POM、Celanex® PBT、Vandar® PBT 合金、Fortron® PPS、Vectra® LCP、Celstran® 长玻纤等系列，覆盖汽车、电子、医疗与工业应用。",
+  },
+  {
+    slug: "solvay",
+    name: "苏威",
+    nameEn: "Solvay",
+    origin: "比利时",
+    tagline: "高性能特种聚合物",
+    description:
+      "比利时苏威是全球高性能聚合物领导者，旗下 Ryton® PPS、Amodel® PPA、KetaSpire® PEEK、Radel® PPSU、Udel® PSU、Ixef® PARA 等系列广泛应用于航空航天、汽车、电子、医疗器械等高端领域。",
+  },
+  {
+    slug: "umg",
+    name: "日本UMG",
+    nameEn: "UMG ABS",
+    origin: "日本",
+    tagline: "高品质 ABS / ASA 专业制造",
+    description:
+      "日本 UMG ABS 株式会社（三菱化学与宇部兴产合资）专注 ABS、ASA、AES、PMMA 共聚物等苯乙烯系工程塑料，以耐候、耐冲击与稳定品质闻名，主力品牌 UMG ABS、DIAPET、UMEX。",
+  },
+  {
+    slug: "lati",
+    name: "拉提",
+    nameEn: "LATI",
+    origin: "意大利",
+    tagline: "欧洲特种工程塑料专家",
+    description:
+      "意大利 LATI 是欧洲知名的特种改性工程塑料制造商，提供 LATAMID® PA、LATILUB® 自润滑、LATICONTHER® 导热、LATIOHM® 导电、LATIGRAY® 抗静电、LASTIL® PPS 等系列，专注高端定制化解决方案。",
+  },
+  {
+    slug: "ajp",
+    name: "亚聚",
+    nameEn: "Asia Polymer (APC)",
+    origin: "台湾",
+    tagline: "EVA 与聚乙烯专业生产商",
+    description:
+      "台湾亚聚（亚洲聚合 APC）是台塑集团旗下专业 EVA 与 LDPE 制造商，主力产品 ASIA EVA 系列广泛用于光伏胶膜、发泡鞋材、电线电缆、热熔胶与农膜领域。",
+  },
+  {
+    slug: "usi",
+    name: "台聚",
+    nameEn: "USI Corporation",
+    origin: "台湾",
+    tagline: "EVA / LDPE / VAE 一体化供应",
+    description:
+      "台湾台聚集团（USI）是亚洲领先的 EVA、LDPE 与 VAE 乳液生产商，旗下 USI EVA、ELVALOY、Taisox 系列广泛应用于光伏封装、发泡鞋材、电线电缆、热熔胶等行业。",
   },
 ];
 
