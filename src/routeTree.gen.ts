@@ -9,38 +9,180 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ProductsRouteImport } from './routes/products'
+import { Route as InquiryRouteImport } from './routes/inquiry'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ApplicationsRouteImport } from './routes/applications'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BrandsIndexRouteImport } from './routes/brands.index'
+import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
+import { Route as BrandsBrandRouteImport } from './routes/brands.$brand'
 
+const ProductsRoute = ProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InquiryRoute = InquiryRouteImport.update({
+  id: '/inquiry',
+  path: '/inquiry',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApplicationsRoute = ApplicationsRouteImport.update({
+  id: '/applications',
+  path: '/applications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BrandsIndexRoute = BrandsIndexRouteImport.update({
+  id: '/brands/',
+  path: '/brands/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsSlugRoute = ProductsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ProductsRoute,
+} as any)
+const BrandsBrandRoute = BrandsBrandRouteImport.update({
+  id: '/brands/$brand',
+  path: '/brands/$brand',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/applications': typeof ApplicationsRoute
+  '/contact': typeof ContactRoute
+  '/inquiry': typeof InquiryRoute
+  '/products': typeof ProductsRouteWithChildren
+  '/brands/$brand': typeof BrandsBrandRoute
+  '/products/$slug': typeof ProductsSlugRoute
+  '/brands/': typeof BrandsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/applications': typeof ApplicationsRoute
+  '/contact': typeof ContactRoute
+  '/inquiry': typeof InquiryRoute
+  '/products': typeof ProductsRouteWithChildren
+  '/brands/$brand': typeof BrandsBrandRoute
+  '/products/$slug': typeof ProductsSlugRoute
+  '/brands': typeof BrandsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/applications': typeof ApplicationsRoute
+  '/contact': typeof ContactRoute
+  '/inquiry': typeof InquiryRoute
+  '/products': typeof ProductsRouteWithChildren
+  '/brands/$brand': typeof BrandsBrandRoute
+  '/products/$slug': typeof ProductsSlugRoute
+  '/brands/': typeof BrandsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/applications'
+    | '/contact'
+    | '/inquiry'
+    | '/products'
+    | '/brands/$brand'
+    | '/products/$slug'
+    | '/brands/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/applications'
+    | '/contact'
+    | '/inquiry'
+    | '/products'
+    | '/brands/$brand'
+    | '/products/$slug'
+    | '/brands'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/applications'
+    | '/contact'
+    | '/inquiry'
+    | '/products'
+    | '/brands/$brand'
+    | '/products/$slug'
+    | '/brands/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ApplicationsRoute: typeof ApplicationsRoute
+  ContactRoute: typeof ContactRoute
+  InquiryRoute: typeof InquiryRoute
+  ProductsRoute: typeof ProductsRouteWithChildren
+  BrandsBrandRoute: typeof BrandsBrandRoute
+  BrandsIndexRoute: typeof BrandsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inquiry': {
+      id: '/inquiry'
+      path: '/inquiry'
+      fullPath: '/inquiry'
+      preLoaderRoute: typeof InquiryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/applications': {
+      id: '/applications'
+      path: '/applications'
+      fullPath: '/applications'
+      preLoaderRoute: typeof ApplicationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +190,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brands/': {
+      id: '/brands/'
+      path: '/brands'
+      fullPath: '/brands/'
+      preLoaderRoute: typeof BrandsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/$slug': {
+      id: '/products/$slug'
+      path: '/$slug'
+      fullPath: '/products/$slug'
+      preLoaderRoute: typeof ProductsSlugRouteImport
+      parentRoute: typeof ProductsRoute
+    }
+    '/brands/$brand': {
+      id: '/brands/$brand'
+      path: '/brands/$brand'
+      fullPath: '/brands/$brand'
+      preLoaderRoute: typeof BrandsBrandRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface ProductsRouteChildren {
+  ProductsSlugRoute: typeof ProductsSlugRoute
+}
+
+const ProductsRouteChildren: ProductsRouteChildren = {
+  ProductsSlugRoute: ProductsSlugRoute,
+}
+
+const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
+  ProductsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ApplicationsRoute: ApplicationsRoute,
+  ContactRoute: ContactRoute,
+  InquiryRoute: InquiryRoute,
+  ProductsRoute: ProductsRouteWithChildren,
+  BrandsBrandRoute: BrandsBrandRoute,
+  BrandsIndexRoute: BrandsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

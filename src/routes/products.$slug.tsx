@@ -81,7 +81,7 @@ function ProductDetail() {
 
             <h2 className="mt-10 font-display text-xl font-semibold">典型应用</h2>
             <div className="mt-4 flex flex-wrap gap-2">
-              {p.applications.map(a => (
+              {p.applications.map((a: string) => (
                 <span key={a} className="rounded-full border border-border bg-card px-3 py-1.5 text-sm">{a}</span>
               ))}
             </div>
