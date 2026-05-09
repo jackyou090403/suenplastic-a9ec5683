@@ -207,8 +207,15 @@ export const products: Product[] = [
     feature: "高透明苯乙烯-丙烯腈共聚物",
     applications: ["化妆品包装", "餐具", "家电透明件"],
   },
-
-  // CCP
+  {
+    slug: "asaclean",
+    brand: "asahi-kasei",
+    series: "ASACLEAN™",
+    material: "螺杆清洗料",
+    grades: ["EX", "PX2", "UP", "U", "NCP", "SX", "E", "PF"],
+    feature: "旭化成原厂螺杆 / 热流道清洗料，免拆机快速换色除胶",
+    applications: ["注塑机螺杆清洗", "挤出机换色", "热流道清洗", "高温工程塑料残料清除"],
+  },
   {
     slug: "lupox-pbt",
     brand: "ccp",
