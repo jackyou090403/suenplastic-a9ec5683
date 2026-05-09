@@ -72,14 +72,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "塑胶原材料" },
+      { name: "description", content: "塑胶原材料，清洗材料" },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "塑胶原材料" },
+      { property: "og:description", content: "塑胶原材料，清洗材料" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "塑胶原材料" },
+      { name: "twitter:description", content: "塑胶原材料，清洗材料" },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f6d08a37-56bf-4347-b975-d94e3e8b21b5/id-preview-d965553a--3c58355f-b5b4-4b91-ade3-ddcff73ae93d.lovable.app-1778293678103.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f6d08a37-56bf-4347-b975-d94e3e8b21b5/id-preview-d965553a--3c58355f-b5b4-4b91-ade3-ddcff73ae93d.lovable.app-1778293678103.png" },
     ],
     links: [
       {
