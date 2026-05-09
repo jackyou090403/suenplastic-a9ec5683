@@ -459,6 +459,7 @@ export const products: Product[] = [
   },
 ];
 
+export const materials = [
   { code: "POM", name: "聚甲醛", desc: "高刚性、耐磨、低摩擦，齿轮结构件首选" },
   { code: "PA66", name: "尼龙66", desc: "耐高温阻燃，汽车电气主力材料" },
   { code: "PBT", name: "聚酯", desc: "电气绝缘 + 阻燃，连接器线圈骨架" },
@@ -466,6 +467,13 @@ export const products: Product[] = [
   { code: "PPS", name: "聚苯硫醚", desc: "耐高温耐化学，新能源汽车关键材料" },
   { code: "LCP", name: "液晶聚合物", desc: "超薄高频，5G 与精密连接器" },
   { code: "mPPO", name: "改性聚苯醚", desc: "低介电、阻燃，光伏与新能源" },
+  { code: "PPA", name: "高温尼龙", desc: "150℃+ 长期使用，SMT 连接器" },
+  { code: "PEEK", name: "聚醚醚酮", desc: "顶级特种工程塑料，航空 / 医疗" },
+  { code: "PPSU", name: "聚苯砜", desc: "可消毒高温透明，医疗器械" },
+  { code: "ABS", name: "ABS 树脂", desc: "通用工程塑料，家电汽车" },
+  { code: "ASA", name: "耐候 ASA", desc: "户外不变色，替代 ABS 户外件" },
+  { code: "EVA", name: "乙烯醋酸乙烯", desc: "光伏胶膜 / 鞋材发泡" },
+  { code: "LDPE", name: "低密度聚乙烯", desc: "薄膜、电缆、包装" },
   { code: "AS/SAN", name: "苯乙烯共聚物", desc: "高透明，包装与家电件" },
 ];
 
