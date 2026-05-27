@@ -496,7 +496,7 @@ export const applications = [
 export const company = {
   name: "厦门塑恩贸易有限公司",
   nameEn: "SUEN Plastic Trading Co., Ltd.",
-  phone: "0592-26472",
+  phone: "0592-5526472",
   fax: "0592-6032367",
   email: "youty123@suenplastic.com",
   address: "厦门市湖里区枋湖北二路1519号",
