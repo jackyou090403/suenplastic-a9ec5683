@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Layout } from "@/components/site/Layout";
 import { brands, materials, applications, products, company } from "@/data/products";
-import { ArrowRight, Award, Boxes, Headphones, Truck, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Award, Boxes, Headphones, Truck, CheckCircle2, Phone, Mail } from "lucide-react";
 import hero from "@/assets/hero-pellets.jpg";
 import auto from "@/assets/app-auto.jpg";
 import elec from "@/assets/app-electronic.jpg";
@@ -11,17 +11,17 @@ import gear from "@/assets/app-gear.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "塑恩贸易 — 宝理 / 旭化成 / 长春化工工程塑料原料代理" },
-      { name: "description", content: "厦门塑恩贸易，宝理 Polyplastics、旭化成 Asahi Kasei、长春化工 CCP 三大品牌授权代理，POM / PA66 / PBT / PC / PPS 现货供应，工厂直采报价。" },
+      { title: "塑恩贸易 — 十大国际品牌工程塑料原料代理" },
+      { name: "description", content: "厦门塑恩贸易，宝理、旭化成、长春化工、帝人、塞拉尼斯、苏威、日本UMG、拉提、亚聚、台聚十大品牌授权代理，POM / PA66 / PBT / PC / PPS / PEEK / PPA / ABS / ASA / EVA 现货供应，工厂直采报价。" },
       { property: "og:title", content: "塑恩贸易 — 工程塑料原料一站式供应" },
-      { property: "og:description", content: "三大品牌授权代理 · 现货库存 · 技术选型支持 · 全国 24h 发货" },
+      { property: "og:description", content: "十大国际品牌授权代理 · 现货库存 · 技术选型支持 · 全国 24h 发货" },
     ],
   }),
   component: Index,
 });
 
 const advantages = [
-  { icon: Award, title: "原厂授权", desc: "三大品牌正规代理，提供授权书与原厂 COA 报告" },
+  { icon: Award, title: "原厂授权", desc: "十大国际品牌正规代理，提供授权书与原厂 COA 报告" },
   { icon: Boxes, title: "现货库存", desc: "厦门 / 上海 / 东莞备货，常用牌号 1 吨起售" },
   { icon: Headphones, title: "技术选型", desc: "资深工程师协助选材，提供改性与加工建议" },
   { icon: Truck, title: "快速响应", desc: "询价 30 分钟内回复，长三角 24 小时送达" },
@@ -34,8 +34,26 @@ const apps = [
   { img: gear, ...applications[4] },
 ];
 
+// Pick representative products from different brands for "hot products"
+const hotProductSlugs = [
+  "duracon-pom",
+  "tenac-pom",
+  "lupox-pbt",
+  "leona-pa66",
+  "panlite-pc",
+  "hostaform-pom",
+  "ryton-pps",
+  "amodel-ppa",
+  "ketaspire-peek",
+  "umg-abs",
+  "latamid-pa",
+  "ajp-eva",
+];
+
 function Index() {
-  const hot = products.slice(0, 6);
+  const hot = hotProductSlugs
+    .map((slug) => products.find((p) => p.slug === slug))
+    .filter(Boolean);
   return (
     <Layout>
       {/* HERO */}
@@ -45,14 +63,14 @@ function Index() {
         <div className="relative mx-auto max-w-7xl px-4 py-24 md:px-6 md:py-36">
           <div className="max-w-2xl">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan/30 bg-cyan/10 px-3 py-1 text-xs font-medium tracking-wide text-cyan">
-              <span className="h-1.5 w-1.5 rounded-full bg-cyan" /> 三大品牌正品授权代理
+              <span className="h-1.5 w-1.5 rounded-full bg-cyan" /> 十大国际品牌正品授权代理
             </div>
             <h1 className="font-display text-4xl font-semibold leading-[1.1] tracking-tight text-balance md:text-6xl">
               工程塑料原料<br />
               <span className="text-cyan">一站式供应商</span>
             </h1>
             <p className="mt-6 max-w-xl text-base opacity-80 md:text-lg">
-              宝理 Polyplastics · 旭化成 Asahi Kasei · 长春化工 CCP — 现货库存充足，原厂 COA，全国 24 小时发货，资深工程师提供选型支持。
+              宝理 · 旭化成 · 长春化工 · 帝人 · 塞拉尼斯 · 苏威 · 日本UMG · 拉提 · 亚聚 · 台聚 — 十大品牌授权代理，现货库存充足，原厂 COA，全国 24 小时发货，资深工程师提供选型支持。
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/inquiry" className="inline-flex items-center gap-2 rounded-md bg-cyan px-6 py-3 font-medium text-deep shadow-deep transition-transform hover:-translate-y-0.5">
@@ -63,9 +81,9 @@ function Index() {
               </Link>
             </div>
             <div className="mt-10 grid max-w-xl grid-cols-3 gap-6 border-t border-white/10 pt-6">
-              <Stat n="10+" label="年代理经验" />
-              <Stat n="200+" label="在售牌号" />
-              <Stat n="2000+" label="终端客户" />
+              <Stat n="15+" label="年代理经验" />
+              <Stat n="300+" label="在售牌号" />
+              <Stat n="3000+" label="终端客户" />
             </div>
           </div>
         </div>
@@ -86,17 +104,19 @@ function Index() {
 
       {/* BRANDS */}
       <section className="mx-auto max-w-7xl px-4 py-20 md:px-6 md:py-28">
-        <SectionTitle kicker="Brands" title="三大品牌授权代理" desc="覆盖日本与台湾三家全球工程塑料领导品牌，从单体到改性料完整产品线。" />
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <SectionTitle kicker="Brands" title="十大品牌授权代理" desc="覆盖日本、美国、比利时、意大利与台湾十大全球工程塑料领导品牌，从通用塑料到特种工程塑料完整产品线。" />
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {brands.map((b) => (
-            <Link key={b.slug} to="/brands/$brand" params={{ brand: b.slug }} className="group relative overflow-hidden rounded-2xl border border-border bg-card p-8 shadow-card transition-all hover:-translate-y-1 hover:shadow-deep">
+            <Link key={b.slug} to="/brands/$brand" params={{ brand: b.slug }} className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-deep">
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-teal opacity-0 transition-opacity group-hover:opacity-100" />
-              <div className="text-xs font-medium uppercase tracking-widest text-accent">{b.origin} · 授权代理</div>
-              <h3 className="mt-3 font-display text-2xl font-semibold">{b.name}</h3>
+              <div className="flex items-center justify-between">
+                <div className="text-xs font-medium uppercase tracking-widest text-accent">{b.origin} · 授权代理</div>
+              </div>
+              <h3 className="mt-3 font-display text-xl font-semibold">{b.name}</h3>
               <div className="mt-1 text-sm text-muted-foreground">{b.nameEn}</div>
-              <p className="mt-5 text-sm leading-relaxed text-foreground/75 line-clamp-4">{b.description}</p>
-              <div className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-accent">
-                查看产品系列 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <p className="mt-4 text-sm leading-relaxed text-foreground/75 line-clamp-3">{b.description}</p>
+              <div className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-accent">
+                查看系列 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </div>
             </Link>
           ))}
@@ -112,17 +132,17 @@ function Index() {
           </div>
           <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {hot.map((p) => (
-              <Link key={p.slug} to="/products/$slug" params={{ slug: p.slug }} className="group rounded-xl border border-border bg-card p-6 shadow-card transition-all hover:-translate-y-1 hover:border-accent">
+              <Link key={p!.slug} to="/products/$slug" params={{ slug: p!.slug }} className="group rounded-xl border border-border bg-card p-6 shadow-card transition-all hover:-translate-y-1 hover:border-accent">
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <div className="font-display text-xl font-semibold">{p.series}</div>
-                    <div className="text-sm text-muted-foreground">{p.material}</div>
+                    <div className="font-display text-xl font-semibold">{p!.series}</div>
+                    <div className="text-sm text-muted-foreground">{p!.material}</div>
                   </div>
-                  <span className="rounded-full bg-secondary px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">{brands.find(b => b.slug === p.brand)?.name}</span>
+                  <span className="rounded-full bg-secondary px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">{brands.find(b => b.slug === p!.brand)?.name}</span>
                 </div>
-                <p className="mt-4 text-sm leading-relaxed text-foreground/80">{p.feature}</p>
+                <p className="mt-4 text-sm leading-relaxed text-foreground/80">{p!.feature}</p>
                 <div className="mt-4 flex flex-wrap gap-1.5">
-                  {p.grades.slice(0, 4).map((g) => (
+                  {p!.grades.slice(0, 4).map((g) => (
                     <span key={g} className="rounded bg-secondary px-2 py-0.5 text-[11px] text-foreground/70">{g}</span>
                   ))}
                 </div>
@@ -134,7 +154,7 @@ function Index() {
 
       {/* MATERIALS */}
       <section className="mx-auto max-w-7xl px-4 py-20 md:px-6 md:py-28">
-        <SectionTitle kicker="Materials" title="按材料快速选型" desc="覆盖通用塑料到高端工程塑料，常用 8 大类材料即查即问。" />
+        <SectionTitle kicker="Materials" title="按材料快速选型" desc="覆盖通用塑料到高端特种工程塑料，15 大类材料即查即问。" />
         <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {materials.map((m) => (
             <div key={m.code} className="rounded-lg border border-border bg-card p-5 transition-colors hover:border-accent">
@@ -180,7 +200,12 @@ function Index() {
             </ul>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/inquiry" className="rounded-md bg-cyan px-6 py-3 font-medium text-deep transition-transform hover:-translate-y-0.5">在线询价</Link>
-              <a href={`tel:${company.phone}`} className="rounded-md border border-white/20 px-6 py-3 font-medium hover:bg-white/10">{company.phone}</a>
+              <a href={`tel:${company.phone}`} className="inline-flex items-center gap-2 rounded-md border border-white/20 px-6 py-3 font-medium hover:bg-white/10">
+                <Phone className="h-4 w-4" /> {company.phone}
+              </a>
+              <a href={`mailto:${company.email}`} className="inline-flex items-center gap-2 rounded-md border border-white/20 px-6 py-3 font-medium hover:bg-white/10">
+                <Mail className="h-4 w-4" /> 邮件咨询
+              </a>
             </div>
           </div>
         </div>
