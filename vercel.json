@@ -1,9 +1,11 @@
 {
-  "framework": "vite",
-  "buildCommand": "vite build",
-  "outputDirectory": "dist",
+  "framework": null,
+  "buildCommand": "vite build && cp dist/client/_shell.html dist/client/index.html",
+  "outputDirectory": "dist/client",
   "installCommand": "npm install --legacy-peer-deps",
+  "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
-    { "source": "/((?!_build/|assets/|.*\\..*).*)", "destination": "/index.html" }
+    { "source": "/((?!assets/|.*\\.[a-zA-Z0-9]+$).*)", "destination": "/_shell.html" }
   ]
 }
