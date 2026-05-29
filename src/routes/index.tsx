@@ -8,13 +8,50 @@ import elec from "@/assets/app-electronic.jpg";
 import appl from "@/assets/app-appliance.jpg";
 import gear from "@/assets/app-gear.jpg";
 
+const HOME_URL = "https://suenplastic.com/";
+
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://suenplastic.com/#organization",
+  name: "厦门塑恩贸易有限公司",
+  alternateName: ["塑恩贸易", "SUEN Plastic"],
+  url: "https://suenplastic.com",
+  image: "https://suenplastic.com/favicon.ico",
+  telephone: "+86-592-5526472",
+  faxNumber: "+86-592-6032367",
+  email: "youty123@suenplastic.com",
+  priceRange: "¥¥",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "湖里区枋湖北二路1519号",
+    addressLocality: "厦门市",
+    addressRegion: "福建省",
+    postalCode: "361000",
+    addressCountry: "CN",
+  },
+  openingHours: "Mo-Sa 08:30-18:00",
+  areaServed: { "@type": "Country", name: "中国" },
+  description:
+    "厦门塑恩贸易有限公司专业从事工程塑料原料贸易，代理日本宝理 Polyplastics、旭化成 Asahi Kasei、台湾长春化工、帝人、塞拉尼斯 Celanese、苏威 Solvay、日本 UMG、拉提 LATI、亚聚、台聚十大国际品牌。",
+};
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "塑恩贸易 — 十大国际品牌工程塑料原料代理" },
-      { name: "description", content: "厦门塑恩贸易，宝理、旭化成、长春化工、帝人、塞拉尼斯、苏威、日本UMG、拉提、亚聚、台聚十大品牌授权代理，POM / PA66 / PBT / PC / PPS / PEEK / PPA / ABS / ASA / EVA 现货供应，工厂直采报价。" },
-      { property: "og:title", content: "塑恩贸易 — 工程塑料原料一站式供应" },
+      { title: "厦门塑恩贸易有限公司 — 十大国际品牌工程塑料原料授权代理" },
+      {
+        name: "description",
+        content:
+          "厦门塑恩贸易有限公司（SUEN Plastic）是宝理 Polyplastics、旭化成、长春化工、帝人、塞拉尼斯、苏威、日本 UMG、拉提、亚聚、台聚十大品牌工程塑料原料的授权代理商，主营 POM / PA66 / PBT / PC / PPS / PEEK / PPA / ABS / ASA / EVA / LCP 现货供应，全国 24 小时发货，咨询电话 0592-5526472。",
+      },
+      { property: "og:title", content: "厦门塑恩贸易有限公司 — 工程塑料原料一站式供应" },
       { property: "og:description", content: "十大国际品牌授权代理 · 现货库存 · 技术选型支持 · 全国 24h 发货" },
+      { property: "og:url", content: HOME_URL },
+    ],
+    links: [{ rel: "canonical", href: HOME_URL }],
+    scripts: [
+      { type: "application/ld+json", children: JSON.stringify(localBusinessJsonLd) },
     ],
   }),
   component: Index,
