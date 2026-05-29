@@ -8,8 +8,10 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "关于我们 — 厦门塑恩贸易有限公司" },
-      { name: "description", content: "厦门塑恩贸易有限公司专注工程塑料原料贸易，宝理、旭化成、长春化工三大品牌授权代理，服务全国两千余家终端客户。" },
+      { name: "description", content: "厦门塑恩贸易有限公司专注工程塑料原料贸易，宝理、旭化成、长春化工三大品牌授权代理，服务全国两千余家终端客户。" },,
+      { property: "og:url", content: "https://suenplastic.com/about" }
     ],
+    links: [{ rel: "canonical", href: "https://suenplastic.com/about" }],
   }),
   component: About,
 });

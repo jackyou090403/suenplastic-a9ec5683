@@ -7,8 +7,10 @@ export const Route = createFileRoute("/products")({
   head: () => ({
     meta: [
       { title: "产品中心 — 宝理 / 旭化成 / 长春化工 工程塑料牌号 | 塑恩贸易" },
-      { name: "description", content: "塑恩贸易产品中心，覆盖 POM、PA66、PBT、PC、PPS、LCP、mPPO 等工程塑料系列，宝理 Polyplastics、旭化成 Asahi Kasei、长春化工 CCP 全品牌牌号。" },
+      { name: "description", content: "塑恩贸易产品中心，覆盖 POM、PA66、PBT、PC、PPS、LCP、mPPO 等工程塑料系列，宝理 Polyplastics、旭化成 Asahi Kasei、长春化工 CCP 全品牌牌号。" },,
+      { property: "og:url", content: "https://suenplastic.com/products" }
     ],
+    links: [{ rel: "canonical", href: "https://suenplastic.com/products" }],
   }),
   component: ProductsPage,
 });

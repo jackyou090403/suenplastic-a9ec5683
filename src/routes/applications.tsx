@@ -10,8 +10,10 @@ export const Route = createFileRoute("/applications")({
   head: () => ({
     meta: [
       { title: "应用领域 — 工程塑料行业方案 | 塑恩贸易" },
-      { name: "description", content: "汽车、电子电器、家电、连接器、精密齿轮、新能源等行业工程塑料应用方案与典型选材建议。" },
+      { name: "description", content: "汽车、电子电器、家电、连接器、精密齿轮、新能源等行业工程塑料应用方案与典型选材建议。" },,
+      { property: "og:url", content: "https://suenplastic.com/applications" }
     ],
+    links: [{ rel: "canonical", href: "https://suenplastic.com/applications" }],
   }),
   component: AppPage,
 });
