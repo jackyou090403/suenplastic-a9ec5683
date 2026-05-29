@@ -7,7 +7,7 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "联系我们 — 厦门塑恩贸易有限公司" },
-      { name: "description", content: `电话 ${company.phone}，邮箱 ${company.email}，地址 ${company.address}` },,
+      { name: "description", content: `电话 ${company.phone}，邮箱 ${company.email}，地址 ${company.address}` },
       { property: "og:url", content: "https://suenplastic.com/contact" }
     ],
     links: [{ rel: "canonical", href: "https://suenplastic.com/contact" }],

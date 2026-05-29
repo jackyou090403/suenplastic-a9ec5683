@@ -8,7 +8,7 @@ export const Route = createFileRoute("/inquiry")({
   head: () => ({
     meta: [
       { title: "在线询价 — 30 分钟内回复 | 塑恩贸易" },
-      { name: "description", content: "工程塑料原料在线询价，宝理 / 旭化成 / 长春化工三大品牌授权代理，30 分钟内回复，可寄样测试。" },,
+      { name: "description", content: "工程塑料原料在线询价，宝理 / 旭化成 / 长春化工三大品牌授权代理，30 分钟内回复，可寄样测试。" },
       { property: "og:url", content: "https://suenplastic.com/inquiry" }
     ],
     links: [{ rel: "canonical", href: "https://suenplastic.com/inquiry" }],
