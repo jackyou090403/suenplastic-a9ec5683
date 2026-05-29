@@ -247,6 +247,53 @@ function Index() {
           </div>
         </div>
       </section>
+
+      {/* SEO 内容区：品牌词与长尾关键词，便于 Google / 百度收录"厦门塑恩贸易有限公司" */}
+      <section className="border-t border-border bg-background py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-4 md:px-6">
+          <h2 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">
+            关于厦门塑恩贸易有限公司
+          </h2>
+          <div className="mt-6 grid gap-8 text-sm leading-relaxed text-foreground/80 md:grid-cols-2">
+            <div className="space-y-4">
+              <p>
+                <strong>厦门塑恩贸易有限公司</strong>（英文名：SUEN Plastic Trading Co., Ltd.，简称
+                <strong>塑恩贸易</strong>）成立至今十余年，注册地位于福建省厦门市湖里区枋湖北二路 1519
+                号，是一家专业从事<strong>工程塑料原料</strong>贸易与技术服务的进出口公司。咨询电话：
+                <a className="text-accent hover:underline" href="tel:0592-5526472">0592-5526472</a>。
+              </p>
+              <p>
+                公司是日本<strong>宝理 Polyplastics</strong>、<strong>旭化成 Asahi Kasei</strong>、台湾
+                <strong>长春化工 CCP</strong>、日本<strong>帝人 Teijin</strong>、美国
+                <strong>塞拉尼斯 Celanese</strong>、比利时<strong>苏威 Solvay</strong>、日本
+                <strong>UMG ABS</strong>、意大利<strong>拉提 LATI</strong>、台湾<strong>亚聚 AJP</strong>、
+                台湾<strong>台聚 USI</strong> 等十大全球工程塑料品牌的中国授权代理商。
+              </p>
+              <p>
+                主营 POM 聚甲醛、PA66 / PA6 尼龙、PBT、PC 聚碳酸酯、PPS、PEEK、PPA、ABS、ASA、AES、EVA、LCP、mPPO
+                等数百个工程塑料牌号，覆盖<strong>汽车零部件、电子电器、家电、精密连接器、5G 通讯、新能源、医疗器械</strong>
+                等行业。
+              </p>
+            </div>
+            <div className="space-y-4">
+              <h3 className="font-display text-lg font-semibold text-foreground">为什么选择塑恩贸易</h3>
+              <ul className="grid gap-2">
+                <li>· 原厂授权 — 提供 COA / TDS / SDS / RoHS / REACH 全套质保文件</li>
+                <li>· 厦门中心仓 — 常用牌号现货供应，1 吨起订，全国 24 小时发货</li>
+                <li>· 技术选型 — 资深工程师 1 对 1 协助选材、改性与加工建议</li>
+                <li>· 稳定供货 — 连续十年与原厂直接合作，价格透明、交期可控</li>
+                <li>· 行业经验 — 服务 3000+ 终端客户，覆盖长三角、珠三角及华南市场</li>
+              </ul>
+              <h3 className="font-display text-lg font-semibold text-foreground">热门搜索</h3>
+              <p className="text-xs text-muted-foreground">
+                厦门工程塑料代理 · 宝理 POM 代理商 · 旭化成尼龙 PA66 · 长春 PBT · 帝人 PC 透明料 · 塞拉尼斯
+                Hostaform · 苏威 PEEK / PPA · UMG ABS / ASA · 拉提导热塑料 · 亚聚 EVA · 台聚 LDPE · 旭化成 Asaclean
+                清洗料
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </Layout>
   );
 }
