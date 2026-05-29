@@ -11,6 +11,31 @@ export const Route = createFileRoute("/contact")({
       { property: "og:url", content: "https://suenplastic.com/contact" }
     ],
     links: [{ rel: "canonical", href: "https://suenplastic.com/contact" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "厦门塑恩贸易有限公司",
+          alternateName: ["塑恩贸易", "SUEN Plastic"],
+          url: "https://suenplastic.com",
+          telephone: "+86-592-5526472",
+          faxNumber: "+86-592-6032367",
+          email: "youty123@suenplastic.com",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "湖里区枋湖北二路1519号",
+            addressLocality: "厦门市",
+            addressRegion: "福建省",
+            postalCode: "361000",
+            addressCountry: "CN",
+          },
+          openingHours: "Mo-Sa 08:30-18:00",
+          areaServed: { "@type": "Country", name: "中国" },
+        }),
+      },
+    ],
   }),
   component: Contact,
 });
