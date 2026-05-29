@@ -7,11 +7,47 @@ import { CheckCircle2, MapPin, Calendar, Layers, Factory } from "lucide-react";
 export const Route = createFileRoute("/brands/$brand")({
   head: ({ params }) => {
     const b = brands.find((x) => x.slug === params.brand);
+    const url = `https://suenplastic.com/brands/${params.brand}`;
+    const title = b ? `${b.name} ${b.nameEn} 工程塑料原料代理 — ${b.tagline} | 厦门塑恩贸易` : "品牌";
+    const desc = b ? b.description : "";
     return {
       meta: [
-        { title: b ? `${b.name} ${b.nameEn} 代理 — ${b.tagline} | 塑恩贸易` : "品牌" },
-        { name: "description", content: b ? b.description : "" },
+        { title },
+        { name: "description", content: desc },
+        { property: "og:title", content: title },
+        { property: "og:description", content: desc },
+        { property: "og:url", content: url },
+        { property: "og:type", content: "website" },
       ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: b
+        ? [
+            {
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Brand",
+                name: `${b.name} ${b.nameEn}`,
+                alternateName: b.nameEn,
+                description: b.description,
+                url,
+                manufacturer: { "@type": "Organization", name: b.nameEn, address: { "@type": "PostalAddress", addressCountry: b.origin } },
+              }),
+            },
+            {
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  { "@type": "ListItem", position: 1, name: "首页", item: "https://suenplastic.com/" },
+                  { "@type": "ListItem", position: 2, name: "品牌代理", item: "https://suenplastic.com/brands" },
+                  { "@type": "ListItem", position: 3, name: `${b.name} ${b.nameEn}`, item: url },
+                ],
+              }),
+            },
+          ]
+        : [],
     };
   },
   loader: ({ params }) => {

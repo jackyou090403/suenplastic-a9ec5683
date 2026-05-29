@@ -8,7 +8,9 @@ export const Route = createFileRoute("/brands/")({
     meta: [
       { title: "品牌代理 — 宝理 / 旭化成 / 长春化工 | 塑恩贸易" },
       { name: "description", content: "塑恩贸易代理三大全球工程塑料品牌：日本宝理 Polyplastics、日本旭化成 Asahi Kasei、台湾长春化工 CCP。" },
+      { property: "og:url", content: "https://suenplastic.com/brands" }
     ],
+    links: [{ rel: "canonical", href: "https://suenplastic.com/brands" }],
   }),
   component: BrandsPage,
 });
