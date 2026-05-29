@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+Disallow: /inquiry
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Sogou web spider
+Allow: /
+
+User-agent: 360Spider
+Allow: /
+
+User-agent: YisouSpider
+Allow: /
+
+Sitemap: https://suenplastic.com/sitemap.xml
