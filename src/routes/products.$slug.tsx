@@ -6,11 +6,56 @@ import { ArrowLeft, FileText, Phone, Mail } from "lucide-react";
 export const Route = createFileRoute("/products/$slug")({
   head: ({ params }) => {
     const p = products.find(x => x.slug === params.slug);
+    const b = p ? brands.find(br => br.slug === p.brand) : undefined;
+    const url = `https://suenplastic.com/products/${params.slug}`;
+    const title = p ? `${p.series} ${p.material} 原料 — ${b?.name} ${b?.nameEn} 授权代理 | 厦门塑恩贸易` : "产品详情";
+    const desc = p ? `${b?.name} ${p.series} ${p.material} 工程塑料原料，可供牌号：${p.grades.join("、")}。${p.feature} 应用于${p.applications.join("、")}。厂家授权代理，现货供应，电话 0592-5526472。` : "";
     return {
       meta: [
-        { title: p ? `${p.series} ${p.material} — ${brands.find(b => b.slug === p.brand)?.name} | 塑恩贸易` : "产品详情" },
-        { name: "description", content: p ? `${p.series} ${p.material} 牌号：${p.grades.join("、")}。${p.feature}` : "" },
+        { title },
+        { name: "description", content: desc },
+        { property: "og:title", content: title },
+        { property: "og:description", content: desc },
+        { property: "og:url", content: url },
+        { property: "og:type", content: "product" },
       ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: p && b
+        ? [
+            {
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Product",
+                name: `${b.name} ${p.series} ${p.material}`,
+                description: p.feature,
+                category: `工程塑料 / ${p.material}`,
+                brand: { "@type": "Brand", name: `${b.name} ${b.nameEn}` },
+                manufacturer: { "@type": "Organization", name: b.nameEn },
+                model: p.grades,
+                url,
+                offers: {
+                  "@type": "Offer",
+                  priceCurrency: "CNY",
+                  availability: "https://schema.org/InStock",
+                  seller: { "@type": "Organization", name: "厦门塑恩贸易有限公司", telephone: "+86-592-5526472" },
+                },
+              }),
+            },
+            {
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  { "@type": "ListItem", position: 1, name: "首页", item: "https://suenplastic.com/" },
+                  { "@type": "ListItem", position: 2, name: "产品中心", item: "https://suenplastic.com/products" },
+                  { "@type": "ListItem", position: 3, name: `${p.series} ${p.material}`, item: url },
+                ],
+              }),
+            },
+          ]
+        : [],
     };
   },
   component: ProductDetail,
