@@ -11,13 +11,23 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as InquiryRouteImport } from './routes/inquiry'
+import { Route as EnRouteImport } from './routes/en'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ApplicationsRouteImport } from './routes/applications'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EnIndexRouteImport } from './routes/en.index'
 import { Route as BrandsIndexRouteImport } from './routes/brands.index'
 import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
+import { Route as EnProductsRouteImport } from './routes/en.products'
+import { Route as EnInquiryRouteImport } from './routes/en.inquiry'
+import { Route as EnContactRouteImport } from './routes/en.contact'
+import { Route as EnApplicationsRouteImport } from './routes/en.applications'
+import { Route as EnAboutRouteImport } from './routes/en.about'
 import { Route as BrandsBrandRouteImport } from './routes/brands.$brand'
+import { Route as EnBrandsIndexRouteImport } from './routes/en.brands.index'
+import { Route as EnProductsSlugRouteImport } from './routes/en.products.$slug'
+import { Route as EnBrandsBrandRouteImport } from './routes/en.brands.$brand'
 
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
@@ -27,6 +37,11 @@ const ProductsRoute = ProductsRouteImport.update({
 const InquiryRoute = InquiryRouteImport.update({
   id: '/inquiry',
   path: '/inquiry',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnRoute = EnRouteImport.update({
+  id: '/en',
+  path: '/en',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -49,6 +64,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnIndexRoute = EnIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => EnRoute,
+} as any)
 const BrandsIndexRoute = BrandsIndexRouteImport.update({
   id: '/brands/',
   path: '/brands/',
@@ -59,10 +79,50 @@ const ProductsSlugRoute = ProductsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ProductsRoute,
 } as any)
+const EnProductsRoute = EnProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnInquiryRoute = EnInquiryRouteImport.update({
+  id: '/inquiry',
+  path: '/inquiry',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnContactRoute = EnContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnApplicationsRoute = EnApplicationsRouteImport.update({
+  id: '/applications',
+  path: '/applications',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnAboutRoute = EnAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => EnRoute,
+} as any)
 const BrandsBrandRoute = BrandsBrandRouteImport.update({
   id: '/brands/$brand',
   path: '/brands/$brand',
   getParentRoute: () => rootRouteImport,
+} as any)
+const EnBrandsIndexRoute = EnBrandsIndexRouteImport.update({
+  id: '/brands/',
+  path: '/brands/',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnProductsSlugRoute = EnProductsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => EnProductsRoute,
+} as any)
+const EnBrandsBrandRoute = EnBrandsBrandRouteImport.update({
+  id: '/brands/$brand',
+  path: '/brands/$brand',
+  getParentRoute: () => EnRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -70,11 +130,21 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/applications': typeof ApplicationsRoute
   '/contact': typeof ContactRoute
+  '/en': typeof EnRouteWithChildren
   '/inquiry': typeof InquiryRoute
   '/products': typeof ProductsRouteWithChildren
   '/brands/$brand': typeof BrandsBrandRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/applications': typeof EnApplicationsRoute
+  '/en/contact': typeof EnContactRoute
+  '/en/inquiry': typeof EnInquiryRoute
+  '/en/products': typeof EnProductsRouteWithChildren
   '/products/$slug': typeof ProductsSlugRoute
   '/brands/': typeof BrandsIndexRoute
+  '/en/': typeof EnIndexRoute
+  '/en/brands/$brand': typeof EnBrandsBrandRoute
+  '/en/products/$slug': typeof EnProductsSlugRoute
+  '/en/brands/': typeof EnBrandsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -84,8 +154,17 @@ export interface FileRoutesByTo {
   '/inquiry': typeof InquiryRoute
   '/products': typeof ProductsRouteWithChildren
   '/brands/$brand': typeof BrandsBrandRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/applications': typeof EnApplicationsRoute
+  '/en/contact': typeof EnContactRoute
+  '/en/inquiry': typeof EnInquiryRoute
+  '/en/products': typeof EnProductsRouteWithChildren
   '/products/$slug': typeof ProductsSlugRoute
   '/brands': typeof BrandsIndexRoute
+  '/en': typeof EnIndexRoute
+  '/en/brands/$brand': typeof EnBrandsBrandRoute
+  '/en/products/$slug': typeof EnProductsSlugRoute
+  '/en/brands': typeof EnBrandsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -93,11 +172,21 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/applications': typeof ApplicationsRoute
   '/contact': typeof ContactRoute
+  '/en': typeof EnRouteWithChildren
   '/inquiry': typeof InquiryRoute
   '/products': typeof ProductsRouteWithChildren
   '/brands/$brand': typeof BrandsBrandRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/applications': typeof EnApplicationsRoute
+  '/en/contact': typeof EnContactRoute
+  '/en/inquiry': typeof EnInquiryRoute
+  '/en/products': typeof EnProductsRouteWithChildren
   '/products/$slug': typeof ProductsSlugRoute
   '/brands/': typeof BrandsIndexRoute
+  '/en/': typeof EnIndexRoute
+  '/en/brands/$brand': typeof EnBrandsBrandRoute
+  '/en/products/$slug': typeof EnProductsSlugRoute
+  '/en/brands/': typeof EnBrandsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -106,11 +195,21 @@ export interface FileRouteTypes {
     | '/about'
     | '/applications'
     | '/contact'
+    | '/en'
     | '/inquiry'
     | '/products'
     | '/brands/$brand'
+    | '/en/about'
+    | '/en/applications'
+    | '/en/contact'
+    | '/en/inquiry'
+    | '/en/products'
     | '/products/$slug'
     | '/brands/'
+    | '/en/'
+    | '/en/brands/$brand'
+    | '/en/products/$slug'
+    | '/en/brands/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -120,19 +219,38 @@ export interface FileRouteTypes {
     | '/inquiry'
     | '/products'
     | '/brands/$brand'
+    | '/en/about'
+    | '/en/applications'
+    | '/en/contact'
+    | '/en/inquiry'
+    | '/en/products'
     | '/products/$slug'
     | '/brands'
+    | '/en'
+    | '/en/brands/$brand'
+    | '/en/products/$slug'
+    | '/en/brands'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/applications'
     | '/contact'
+    | '/en'
     | '/inquiry'
     | '/products'
     | '/brands/$brand'
+    | '/en/about'
+    | '/en/applications'
+    | '/en/contact'
+    | '/en/inquiry'
+    | '/en/products'
     | '/products/$slug'
     | '/brands/'
+    | '/en/'
+    | '/en/brands/$brand'
+    | '/en/products/$slug'
+    | '/en/brands/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -140,6 +258,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ApplicationsRoute: typeof ApplicationsRoute
   ContactRoute: typeof ContactRoute
+  EnRoute: typeof EnRouteWithChildren
   InquiryRoute: typeof InquiryRoute
   ProductsRoute: typeof ProductsRouteWithChildren
   BrandsBrandRoute: typeof BrandsBrandRoute
@@ -160,6 +279,13 @@ declare module '@tanstack/react-router' {
       path: '/inquiry'
       fullPath: '/inquiry'
       preLoaderRoute: typeof InquiryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en': {
+      id: '/en'
+      path: '/en'
+      fullPath: '/en'
+      preLoaderRoute: typeof EnRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -190,6 +316,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/': {
+      id: '/en/'
+      path: '/'
+      fullPath: '/en/'
+      preLoaderRoute: typeof EnIndexRouteImport
+      parentRoute: typeof EnRoute
+    }
     '/brands/': {
       id: '/brands/'
       path: '/brands'
@@ -204,6 +337,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsSlugRouteImport
       parentRoute: typeof ProductsRoute
     }
+    '/en/products': {
+      id: '/en/products'
+      path: '/products'
+      fullPath: '/en/products'
+      preLoaderRoute: typeof EnProductsRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/inquiry': {
+      id: '/en/inquiry'
+      path: '/inquiry'
+      fullPath: '/en/inquiry'
+      preLoaderRoute: typeof EnInquiryRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/contact': {
+      id: '/en/contact'
+      path: '/contact'
+      fullPath: '/en/contact'
+      preLoaderRoute: typeof EnContactRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/applications': {
+      id: '/en/applications'
+      path: '/applications'
+      fullPath: '/en/applications'
+      preLoaderRoute: typeof EnApplicationsRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/about': {
+      id: '/en/about'
+      path: '/about'
+      fullPath: '/en/about'
+      preLoaderRoute: typeof EnAboutRouteImport
+      parentRoute: typeof EnRoute
+    }
     '/brands/$brand': {
       id: '/brands/$brand'
       path: '/brands/$brand'
@@ -211,8 +379,65 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrandsBrandRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/brands/': {
+      id: '/en/brands/'
+      path: '/brands'
+      fullPath: '/en/brands/'
+      preLoaderRoute: typeof EnBrandsIndexRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/products/$slug': {
+      id: '/en/products/$slug'
+      path: '/$slug'
+      fullPath: '/en/products/$slug'
+      preLoaderRoute: typeof EnProductsSlugRouteImport
+      parentRoute: typeof EnProductsRoute
+    }
+    '/en/brands/$brand': {
+      id: '/en/brands/$brand'
+      path: '/brands/$brand'
+      fullPath: '/en/brands/$brand'
+      preLoaderRoute: typeof EnBrandsBrandRouteImport
+      parentRoute: typeof EnRoute
+    }
   }
 }
+
+interface EnProductsRouteChildren {
+  EnProductsSlugRoute: typeof EnProductsSlugRoute
+}
+
+const EnProductsRouteChildren: EnProductsRouteChildren = {
+  EnProductsSlugRoute: EnProductsSlugRoute,
+}
+
+const EnProductsRouteWithChildren = EnProductsRoute._addFileChildren(
+  EnProductsRouteChildren,
+)
+
+interface EnRouteChildren {
+  EnAboutRoute: typeof EnAboutRoute
+  EnApplicationsRoute: typeof EnApplicationsRoute
+  EnContactRoute: typeof EnContactRoute
+  EnInquiryRoute: typeof EnInquiryRoute
+  EnProductsRoute: typeof EnProductsRouteWithChildren
+  EnIndexRoute: typeof EnIndexRoute
+  EnBrandsBrandRoute: typeof EnBrandsBrandRoute
+  EnBrandsIndexRoute: typeof EnBrandsIndexRoute
+}
+
+const EnRouteChildren: EnRouteChildren = {
+  EnAboutRoute: EnAboutRoute,
+  EnApplicationsRoute: EnApplicationsRoute,
+  EnContactRoute: EnContactRoute,
+  EnInquiryRoute: EnInquiryRoute,
+  EnProductsRoute: EnProductsRouteWithChildren,
+  EnIndexRoute: EnIndexRoute,
+  EnBrandsBrandRoute: EnBrandsBrandRoute,
+  EnBrandsIndexRoute: EnBrandsIndexRoute,
+}
+
+const EnRouteWithChildren = EnRoute._addFileChildren(EnRouteChildren)
 
 interface ProductsRouteChildren {
   ProductsSlugRoute: typeof ProductsSlugRoute
@@ -231,6 +456,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ApplicationsRoute: ApplicationsRoute,
   ContactRoute: ContactRoute,
+  EnRoute: EnRouteWithChildren,
   InquiryRoute: InquiryRoute,
   ProductsRoute: ProductsRouteWithChildren,
   BrandsBrandRoute: BrandsBrandRoute,
@@ -239,13 +465,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

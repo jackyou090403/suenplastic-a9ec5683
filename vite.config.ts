@@ -1,9 +1,5 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-// Vercel deployment: disable the Cloudflare Worker plugin and build the app
-// as a fully prerendered SPA. TanStack Start prerenders every route reachable
-// via <Link> at build time, producing static HTML + a client bundle that
-// Vercel serves as a plain static site (no serverless functions required).
 export default defineConfig({
   cloudflare: false,
   tanstackStart: {
@@ -15,8 +11,6 @@ export default defineConfig({
         retryCount: 2,
       },
     },
-    // Make sure the homepage and every top-level route are seeded for the
-    // prerender crawler in case some are not linked from "/".
     pages: [
       { path: "/" },
       { path: "/products" },
@@ -25,6 +19,13 @@ export default defineConfig({
       { path: "/about" },
       { path: "/contact" },
       { path: "/inquiry" },
+      { path: "/en" },
+      { path: "/en/products" },
+      { path: "/en/brands" },
+      { path: "/en/applications" },
+      { path: "/en/about" },
+      { path: "/en/contact" },
+      { path: "/en/inquiry" },
     ],
   },
 });
