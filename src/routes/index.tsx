@@ -128,7 +128,7 @@ export function HomePage() {
                 {ui.common.inquireNow[lang]} <ArrowRight className="h-4 w-4" />
               </Link>
               <Link to={lp("/products", lang) as any} className="inline-flex items-center gap-2 rounded-md border border-white/20 px-6 py-3 font-medium hover:bg-white/10">
-                {ui.home.materialsTitle ? ui.common.browseProducts[lang] : ""}
+                {ui.common.browseProducts[lang]}
               </Link>
             </div>
             <div className="mt-10 grid max-w-xl grid-cols-3 gap-6 border-t border-white/10 pt-6">
