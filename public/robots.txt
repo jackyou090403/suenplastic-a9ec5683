@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
+Allow: /en/
 Disallow: /inquiry
+Disallow: /en/inquiry
 
 User-agent: Googlebot
 Allow: /
