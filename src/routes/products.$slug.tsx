@@ -125,7 +125,7 @@ function scrollToId(id: string) {
 }
 
 // ============ Section content tables ============
-type Row = [string, string];
+type Row = string[];
 const t = (zh: string, en: string, lang: Lang) => (lang === "zh" ? zh : en);
 const NA = (lang: Lang) => t("以原厂 TDS 为准 / 联系销售", "Refer to original TDS / Contact sales", lang);
 
