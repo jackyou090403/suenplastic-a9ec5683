@@ -1,0 +1,85 @@
+import { createServerFn } from "@tanstack/react-start";
+import { z } from "zod";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+
+const productSchema = z.object({
+  id: z.string().uuid().optional(),
+  slug: z.string().min(1).max(120).regex(/^[a-z0-9-]+$/, "slug 仅允许小写字母、数字、短横"),
+  brand: z.string().min(1).max(60),
+  series: z.string().max(120).default(""),
+  material: z.string().max(120).default(""),
+  grades: z.array(z.string().max(120)).max(200).default([]),
+  feature: z.string().max(2000).default(""),
+  applications: z.array(z.string().max(200)).max(50).default([]),
+  sort_order: z.number().int().optional(),
+});
+
+async function assertAdmin(supabase: any, userId: string) {
+  const { data, error } = await supabase
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", userId)
+    .eq("role", "admin")
+    .maybeSingle();
+  if (error) throw new Error(error.message);
+  if (!data) throw new Error("Forbidden: 仅管理员可执行此操作");
+}
+
+export const upsertProduct = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input) => productSchema.parse(input))
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+    await assertAdmin(supabase, userId);
+    const { error, data: row } = await supabase
+      .from("products")
+      .upsert(data, { onConflict: "slug" })
+      .select()
+      .single();
+    if (error) throw new Error(error.message);
+    return row;
+  });
+
+export const deleteProduct = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input) => z.object({ id: z.string().uuid() }).parse(input))
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+    await assertAdmin(supabase, userId);
+    const { error } = await supabase.from("products").delete().eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
+export const bulkImportProducts = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input) =>
+    z.object({
+      rows: z.array(productSchema.omit({ id: true })).min(1).max(2000),
+      mode: z.enum(["upsert", "insert"]).default("upsert"),
+    }).parse(input),
+  )
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+    await assertAdmin(supabase, userId);
+    const q =
+      data.mode === "upsert"
+        ? supabase.from("products").upsert(data.rows, { onConflict: "slug" })
+        : supabase.from("products").insert(data.rows);
+    const { error, data: rows } = await q.select();
+    if (error) throw new Error(error.message);
+    return { inserted: rows?.length ?? 0 };
+  });
+
+export const checkIsAdmin = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { supabase, userId } = context;
+    const { data } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", userId)
+      .eq("role", "admin")
+      .maybeSingle();
+    return { isAdmin: !!data, userId };
+  });
