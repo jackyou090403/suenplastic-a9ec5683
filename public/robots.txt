@@ -3,6 +3,8 @@ Allow: /
 Allow: /en/
 Disallow: /inquiry
 Disallow: /en/inquiry
+Disallow: /admin
+Disallow: /auth
 
 User-agent: Googlebot
 Allow: /
