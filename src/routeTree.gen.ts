@@ -16,6 +16,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ApplicationsRouteImport } from './routes/applications'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EnIndexRouteImport } from './routes/en.index'
 import { Route as BrandsIndexRouteImport } from './routes/brands.index'
@@ -26,6 +27,7 @@ import { Route as EnContactRouteImport } from './routes/en.contact'
 import { Route as EnApplicationsRouteImport } from './routes/en.applications'
 import { Route as EnAboutRouteImport } from './routes/en.about'
 import { Route as BrandsBrandRouteImport } from './routes/brands.$brand'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as EnBrandsIndexRouteImport } from './routes/en.brands.index'
 import { Route as EnProductsSlugRouteImport } from './routes/en.products.$slug'
 import { Route as EnBrandsBrandRouteImport } from './routes/en.brands.$brand'
@@ -63,6 +65,10 @@ const ApplicationsRoute = ApplicationsRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -115,6 +121,11 @@ const BrandsBrandRoute = BrandsBrandRouteImport.update({
   path: '/brands/$brand',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const EnBrandsIndexRoute = EnBrandsIndexRouteImport.update({
   id: '/brands/',
   path: '/brands/',
@@ -140,6 +151,7 @@ export interface FileRoutesByFullPath {
   '/en': typeof EnRouteWithChildren
   '/inquiry': typeof InquiryRoute
   '/products': typeof ProductsRouteWithChildren
+  '/admin': typeof AuthenticatedAdminRoute
   '/brands/$brand': typeof BrandsBrandRoute
   '/en/about': typeof EnAboutRoute
   '/en/applications': typeof EnApplicationsRoute
@@ -161,6 +173,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/inquiry': typeof InquiryRoute
   '/products': typeof ProductsRouteWithChildren
+  '/admin': typeof AuthenticatedAdminRoute
   '/brands/$brand': typeof BrandsBrandRoute
   '/en/about': typeof EnAboutRoute
   '/en/applications': typeof EnApplicationsRoute
@@ -177,6 +190,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/applications': typeof ApplicationsRoute
   '/auth': typeof AuthRoute
@@ -184,6 +198,7 @@ export interface FileRoutesById {
   '/en': typeof EnRouteWithChildren
   '/inquiry': typeof InquiryRoute
   '/products': typeof ProductsRouteWithChildren
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/brands/$brand': typeof BrandsBrandRoute
   '/en/about': typeof EnAboutRoute
   '/en/applications': typeof EnApplicationsRoute
@@ -208,6 +223,7 @@ export interface FileRouteTypes {
     | '/en'
     | '/inquiry'
     | '/products'
+    | '/admin'
     | '/brands/$brand'
     | '/en/about'
     | '/en/applications'
@@ -229,6 +245,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/inquiry'
     | '/products'
+    | '/admin'
     | '/brands/$brand'
     | '/en/about'
     | '/en/applications'
@@ -244,6 +261,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/about'
     | '/applications'
     | '/auth'
@@ -251,6 +269,7 @@ export interface FileRouteTypes {
     | '/en'
     | '/inquiry'
     | '/products'
+    | '/_authenticated/admin'
     | '/brands/$brand'
     | '/en/about'
     | '/en/applications'
@@ -267,6 +286,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   ApplicationsRoute: typeof ApplicationsRoute
   AuthRoute: typeof AuthRoute
@@ -327,6 +347,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -399,6 +426,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrandsBrandRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/en/brands/': {
       id: '/en/brands/'
       path: '/brands'
@@ -422,6 +456,17 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
 interface EnProductsRouteChildren {
   EnProductsSlugRoute: typeof EnProductsSlugRoute
@@ -473,6 +518,7 @@ const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   ApplicationsRoute: ApplicationsRoute,
   AuthRoute: AuthRoute,
@@ -486,3 +532,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
