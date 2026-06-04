@@ -58,6 +58,7 @@ export function makeHomeHead(lang: Lang) {
     meta: [
       { title },
       { name: "description", content: desc },
+      { name: "baidu-site-verification", content: "codeva-PmnCpnkRCV" },
       { property: "og:title", content: title },
       { property: "og:description", content: desc },
       { property: "og:url", content: url },
