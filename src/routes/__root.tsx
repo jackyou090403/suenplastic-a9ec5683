@@ -114,7 +114,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "厦门塑恩贸易有限公司 — 宝理 / 旭化成 / 长春化工 工程塑料原料授权代理" },
+      { title: "厦门塑恩贸易有限公司|塑胶原料|宝理/旭化成/帝人PC/POM/EVOH原料" },
       {
         name: "description",
         content:
