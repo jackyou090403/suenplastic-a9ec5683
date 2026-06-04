@@ -118,12 +118,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "厦门塑恩贸易有限公司（SUEN Plastic）专业代理日本宝理 Polyplastics、旭化成 Asahi Kasei、台湾长春化工、帝人、塞拉尼斯、苏威、日本 UMG、拉提、亚聚、台聚十大品牌工程塑料原料，主营 POM / PA66 / PBT / PC / PPS / PEEK / PPA / ABS / EVA / LCP 现货供应，电话 0592-5526472。",
+          "厦门塑恩贸易有限公司位于厦门，专业经销苏威、塞拉尼斯、宝理、旭化成、帝人等原厂塑胶原料，PC、POM、PA66、PPA等阻燃改性塑料现货，原厂物性表免费下载。",
       },
       {
         name: "keywords",
         content:
-          "厦门塑恩贸易,厦门塑恩贸易有限公司,塑恩贸易,SUEN Plastic,工程塑料,工程塑料原料,塑胶原料代理,宝理代理,Polyplastics,旭化成 POM,长春化工 PBT,帝人 PC,塞拉尼斯 Celanese,苏威 Solvay,UMG ABS,POM,PA66,PBT,PC,PPS,PEEK,PPA,LCP,EVA,工程塑料厂家",
+          "厦门塑恩贸易有限公司,塑胶原料,PC,POM,EVOH,宝理,旭化成,帝人,塞拉尼斯",
       },
       { name: "author", content: SITE_NAME },
       { name: "robots", content: "index,follow,max-image-preview:large,max-snippet:-1" },
