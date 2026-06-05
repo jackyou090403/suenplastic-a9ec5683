@@ -59,6 +59,7 @@ export function makeHomeHead(lang: Lang) {
       { title },
       { name: "description", content: desc },
       { name: "baidu-site-verification", content: "codeva-PmnCpnkRCV" },
+      { name: "360-site-verification", content: "2e69cef04c8ecf105a41a75dc1c2ba6f" },
       { property: "og:title", content: title },
       { property: "og:description", content: desc },
       { property: "og:url", content: url },
