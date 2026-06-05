@@ -84,7 +84,11 @@ function AdminPage() {
         .order("brand")
         .order("sort_order");
       if (error) throw error;
-      return data as Row[];
+      return (data ?? []).map((d: any) => ({
+        ...d,
+        images: Array.isArray(d.images) ? d.images : [],
+        docs: Array.isArray(d.docs) ? d.docs : [],
+      })) as Row[];
     },
   });
 
