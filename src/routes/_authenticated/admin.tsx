@@ -28,6 +28,8 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
+type DocItem = { name: string; url: string };
+
 type Row = {
   id: string;
   slug: string;
@@ -37,6 +39,9 @@ type Row = {
   grades: string[];
   feature: string;
   applications: string[];
+  image_url: string;
+  images: string[];
+  docs: DocItem[];
   sort_order: number;
 };
 
@@ -48,6 +53,9 @@ const empty: Omit<Row, "id"> = {
   grades: [],
   feature: "",
   applications: [],
+  image_url: "",
+  images: [],
+  docs: [],
   sort_order: 0,
 };
 
@@ -76,7 +84,11 @@ function AdminPage() {
         .order("brand")
         .order("sort_order");
       if (error) throw error;
-      return data as Row[];
+      return (data ?? []).map((d: any) => ({
+        ...d,
+        images: Array.isArray(d.images) ? d.images : [],
+        docs: Array.isArray(d.docs) ? d.docs : [],
+      })) as Row[];
     },
   });
 
@@ -329,6 +341,30 @@ function EditDialog({
               onChange={(e) => update("applications", e.target.value.split(/\n|\|/).map((s) => s.trim()).filter(Boolean))}
             />
           </Field>
+
+          <Field label="主图（建议 1200×900，自动上传）" full>
+            <ImageUploader
+              slug={form.slug}
+              value={form.image_url || ""}
+              onChange={(url) => update("image_url", url)}
+            />
+          </Field>
+
+          <Field label="图集（可多张）" full>
+            <GalleryUploader
+              slug={form.slug}
+              values={Array.isArray(form.images) ? form.images : []}
+              onChange={(arr) => update("images", arr)}
+            />
+          </Field>
+
+          <Field label="附件（COA / 物性表 PDF，可多个）" full>
+            <DocsUploader
+              slug={form.slug}
+              values={Array.isArray(form.docs) ? form.docs : []}
+              onChange={(arr) => update("docs", arr)}
+            />
+          </Field>
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>取消</Button>
@@ -344,6 +380,140 @@ function Field({ label, children, full }: { label: string; children: React.React
     <div className={full ? "col-span-2 space-y-1.5" : "space-y-1.5"}>
       <Label className="text-xs">{label}</Label>
       {children}
+    </div>
+  );
+}
+
+// ===== 上传工具 =====
+const ONE_YEAR = 60 * 60 * 24 * 365;
+
+async function uploadToBucket(bucket: string, slug: string, file: File): Promise<string> {
+  const safeSlug = (slug || "untitled").toLowerCase().replace(/[^a-z0-9-]/g, "-");
+  const ts = Date.now();
+  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+  const path = `${safeSlug}/${ts}-${safeName}`;
+  const { error } = await supabase.storage.from(bucket).upload(path, file, {
+    cacheControl: "31536000",
+    upsert: false,
+    contentType: file.type || undefined,
+  });
+  if (error) throw error;
+  const { data, error: signErr } = await supabase.storage
+    .from(bucket)
+    .createSignedUrl(path, ONE_YEAR);
+  if (signErr) throw signErr;
+  return data.signedUrl;
+}
+
+function ImageUploader({ slug, value, onChange }: { slug: string; value: string; onChange: (url: string) => void }) {
+  const [busy, setBusy] = useState(false);
+  const ref = useRef<HTMLInputElement>(null);
+  const onPick = async (f: File) => {
+    setBusy(true);
+    try {
+      const url = await uploadToBucket("product-images", slug, f);
+      onChange(url);
+      toast.success("上传成功");
+    } catch (e: any) { toast.error("上传失败: " + e.message); }
+    finally { setBusy(false); if (ref.current) ref.current.value = ""; }
+  };
+  return (
+    <div className="space-y-2">
+      <div className="flex gap-2 items-center">
+        <input ref={ref} type="file" accept="image/*" hidden onChange={(e) => e.target.files?.[0] && onPick(e.target.files[0])} />
+        <Button type="button" variant="outline" size="sm" onClick={() => ref.current?.click()} disabled={busy || !slug}>
+          {busy ? "上传中..." : "选择图片上传"}
+        </Button>
+        {!slug && <span className="text-xs text-muted-foreground">请先填写 slug</span>}
+        {value && <Button type="button" variant="ghost" size="sm" onClick={() => onChange("")}>清除</Button>}
+      </div>
+      <Input placeholder="或粘贴图片 URL" value={value} onChange={(e) => onChange(e.target.value)} />
+      {value && <img src={value} alt="" className="h-24 w-auto rounded border border-border object-cover" />}
+    </div>
+  );
+}
+
+function GalleryUploader({ slug, values, onChange }: { slug: string; values: string[]; onChange: (arr: string[]) => void }) {
+  const [busy, setBusy] = useState(false);
+  const ref = useRef<HTMLInputElement>(null);
+  const onPick = async (files: FileList) => {
+    setBusy(true);
+    try {
+      const uploaded: string[] = [];
+      for (const f of Array.from(files)) {
+        uploaded.push(await uploadToBucket("product-images", slug, f));
+      }
+      onChange([...values, ...uploaded]);
+      toast.success(`成功上传 ${uploaded.length} 张`);
+    } catch (e: any) { toast.error("上传失败: " + e.message); }
+    finally { setBusy(false); if (ref.current) ref.current.value = ""; }
+  };
+  return (
+    <div className="space-y-2">
+      <div className="flex gap-2 items-center">
+        <input ref={ref} type="file" accept="image/*" multiple hidden onChange={(e) => e.target.files?.length && onPick(e.target.files)} />
+        <Button type="button" variant="outline" size="sm" onClick={() => ref.current?.click()} disabled={busy || !slug}>
+          {busy ? "上传中..." : "添加图片（可多选）"}
+        </Button>
+        {!slug && <span className="text-xs text-muted-foreground">请先填写 slug</span>}
+      </div>
+      {values.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {values.map((u, i) => (
+            <div key={i} className="relative">
+              <img src={u} alt="" className="h-20 w-20 rounded border border-border object-cover" />
+              <button type="button" className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full w-5 h-5 text-xs"
+                onClick={() => onChange(values.filter((_, idx) => idx !== i))}>×</button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function DocsUploader({ slug, values, onChange }: { slug: string; values: DocItem[]; onChange: (arr: DocItem[]) => void }) {
+  const [busy, setBusy] = useState(false);
+  const ref = useRef<HTMLInputElement>(null);
+  const onPick = async (files: FileList) => {
+    setBusy(true);
+    try {
+      const added: DocItem[] = [];
+      for (const f of Array.from(files)) {
+        const url = await uploadToBucket("product-docs", slug, f);
+        added.push({ name: f.name, url });
+      }
+      onChange([...values, ...added]);
+      toast.success(`成功上传 ${added.length} 个附件`);
+    } catch (e: any) { toast.error("上传失败: " + e.message); }
+    finally { setBusy(false); if (ref.current) ref.current.value = ""; }
+  };
+  return (
+    <div className="space-y-2">
+      <div className="flex gap-2 items-center">
+        <input ref={ref} type="file" accept=".pdf,application/pdf" multiple hidden onChange={(e) => e.target.files?.length && onPick(e.target.files)} />
+        <Button type="button" variant="outline" size="sm" onClick={() => ref.current?.click()} disabled={busy || !slug}>
+          {busy ? "上传中..." : "添加 PDF 附件"}
+        </Button>
+        {!slug && <span className="text-xs text-muted-foreground">请先填写 slug</span>}
+      </div>
+      {values.length > 0 && (
+        <ul className="space-y-1 text-sm">
+          {values.map((d, i) => (
+            <li key={i} className="flex items-center gap-2">
+              <a href={d.url} target="_blank" rel="noreferrer" className="text-primary underline truncate flex-1">{d.name}</a>
+              <Input
+                value={d.name}
+                onChange={(e) => onChange(values.map((x, idx) => idx === i ? { ...x, name: e.target.value } : x))}
+                className="h-7 max-w-[200px]"
+                placeholder="显示名称"
+              />
+              <button type="button" className="text-destructive text-xs"
+                onClick={() => onChange(values.filter((_, idx) => idx !== i))}>删除</button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
