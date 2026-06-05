@@ -341,6 +341,30 @@ function EditDialog({
               onChange={(e) => update("applications", e.target.value.split(/\n|\|/).map((s) => s.trim()).filter(Boolean))}
             />
           </Field>
+
+          <Field label="主图（建议 1200×900，自动上传）" full>
+            <ImageUploader
+              slug={form.slug}
+              value={form.image_url || ""}
+              onChange={(url) => update("image_url", url)}
+            />
+          </Field>
+
+          <Field label="图集（可多张）" full>
+            <GalleryUploader
+              slug={form.slug}
+              values={Array.isArray(form.images) ? form.images : []}
+              onChange={(arr) => update("images", arr)}
+            />
+          </Field>
+
+          <Field label="附件（COA / 物性表 PDF，可多个）" full>
+            <DocsUploader
+              slug={form.slug}
+              values={Array.isArray(form.docs) ? form.docs : []}
+              onChange={(arr) => update("docs", arr)}
+            />
+          </Field>
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>取消</Button>
