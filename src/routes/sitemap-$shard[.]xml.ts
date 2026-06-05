@@ -6,7 +6,8 @@ export const Route = createFileRoute("/sitemap-$shard.xml")({
   server: {
     handlers: {
       GET: async ({ params }) => {
-        const idx = Number((params as { shard: string }).shard);
+        const shardParam = (params as unknown as Record<string, string>).shard ?? (params as unknown as Record<string, string>)["shard.xml"];
+        const idx = Number(shardParam);
         if (!Number.isInteger(idx) || idx < 1) {
           return new Response("Not Found", { status: 404 });
         }
