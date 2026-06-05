@@ -2,6 +2,11 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
+const docSchema = z.object({
+  name: z.string().min(1).max(200),
+  url: z.string().url().max(2000),
+});
+
 const productSchema = z.object({
   id: z.string().uuid().optional(),
   slug: z.string().min(1).max(120).regex(/^[a-z0-9-]+$/, "slug 仅允许小写字母、数字、短横"),
@@ -11,6 +16,9 @@ const productSchema = z.object({
   grades: z.array(z.string().max(120)).max(200).default([]),
   feature: z.string().max(2000).default(""),
   applications: z.array(z.string().max(200)).max(50).default([]),
+  image_url: z.string().max(2000).default(""),
+  images: z.array(z.string().url().max(2000)).max(20).default([]),
+  docs: z.array(docSchema).max(20).default([]),
   sort_order: z.number().int().optional(),
 });
 
