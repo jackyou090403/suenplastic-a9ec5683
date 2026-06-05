@@ -19,9 +19,12 @@ export type Database = {
           applications: string[]
           brand: string
           created_at: string
+          docs: Json
           feature: string
           grades: string[]
           id: string
+          image_url: string
+          images: Json
           material: string
           series: string
           slug: string
@@ -32,9 +35,12 @@ export type Database = {
           applications?: string[]
           brand: string
           created_at?: string
+          docs?: Json
           feature?: string
           grades?: string[]
           id?: string
+          image_url?: string
+          images?: Json
           material?: string
           series?: string
           slug: string
@@ -45,9 +51,12 @@ export type Database = {
           applications?: string[]
           brand?: string
           created_at?: string
+          docs?: Json
           feature?: string
           grades?: string[]
           id?: string
+          image_url?: string
+          images?: Json
           material?: string
           series?: string
           slug?: string
