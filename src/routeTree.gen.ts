@@ -9,6 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SitemapShardDotxmlRouteImport } from './routes/sitemap-$shard[.]xml'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as InquiryRouteImport } from './routes/inquiry'
 import { Route as EnRouteImport } from './routes/en'
@@ -32,6 +34,16 @@ import { Route as EnBrandsIndexRouteImport } from './routes/en.brands.index'
 import { Route as EnProductsSlugRouteImport } from './routes/en.products.$slug'
 import { Route as EnBrandsBrandRouteImport } from './routes/en.brands.$brand'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapShardDotxmlRoute = SitemapShardDotxmlRouteImport.update({
+  id: '/sitemap-$shard.xml',
+  path: '/sitemap-$shard.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
@@ -151,6 +163,8 @@ export interface FileRoutesByFullPath {
   '/en': typeof EnRouteWithChildren
   '/inquiry': typeof InquiryRoute
   '/products': typeof ProductsRouteWithChildren
+  '/sitemap-$shard.xml': typeof SitemapShardDotxmlRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/brands/$brand': typeof BrandsBrandRoute
   '/en/about': typeof EnAboutRoute
@@ -173,6 +187,8 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/inquiry': typeof InquiryRoute
   '/products': typeof ProductsRouteWithChildren
+  '/sitemap-$shard.xml': typeof SitemapShardDotxmlRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/brands/$brand': typeof BrandsBrandRoute
   '/en/about': typeof EnAboutRoute
@@ -198,6 +214,8 @@ export interface FileRoutesById {
   '/en': typeof EnRouteWithChildren
   '/inquiry': typeof InquiryRoute
   '/products': typeof ProductsRouteWithChildren
+  '/sitemap-$shard.xml': typeof SitemapShardDotxmlRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/brands/$brand': typeof BrandsBrandRoute
   '/en/about': typeof EnAboutRoute
@@ -223,6 +241,8 @@ export interface FileRouteTypes {
     | '/en'
     | '/inquiry'
     | '/products'
+    | '/sitemap-$shard.xml'
+    | '/sitemap.xml'
     | '/admin'
     | '/brands/$brand'
     | '/en/about'
@@ -245,6 +265,8 @@ export interface FileRouteTypes {
     | '/contact'
     | '/inquiry'
     | '/products'
+    | '/sitemap-$shard.xml'
+    | '/sitemap.xml'
     | '/admin'
     | '/brands/$brand'
     | '/en/about'
@@ -269,6 +291,8 @@ export interface FileRouteTypes {
     | '/en'
     | '/inquiry'
     | '/products'
+    | '/sitemap-$shard.xml'
+    | '/sitemap.xml'
     | '/_authenticated/admin'
     | '/brands/$brand'
     | '/en/about'
@@ -294,12 +318,28 @@ export interface RootRouteChildren {
   EnRoute: typeof EnRouteWithChildren
   InquiryRoute: typeof InquiryRoute
   ProductsRoute: typeof ProductsRouteWithChildren
+  SitemapShardDotxmlRoute: typeof SitemapShardDotxmlRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   BrandsBrandRoute: typeof BrandsBrandRoute
   BrandsIndexRoute: typeof BrandsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap-$shard.xml': {
+      id: '/sitemap-$shard.xml'
+      path: '/sitemap-$shard.xml'
+      fullPath: '/sitemap-$shard.xml'
+      preLoaderRoute: typeof SitemapShardDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products': {
       id: '/products'
       path: '/products'
@@ -526,9 +566,21 @@ const rootRouteChildren: RootRouteChildren = {
   EnRoute: EnRouteWithChildren,
   InquiryRoute: InquiryRoute,
   ProductsRoute: ProductsRouteWithChildren,
+  SitemapShardDotxmlRoute: SitemapShardDotxmlRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   BrandsBrandRoute: BrandsBrandRoute,
   BrandsIndexRoute: BrandsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
