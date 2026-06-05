@@ -28,6 +28,8 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
+type DocItem = { name: string; url: string };
+
 type Row = {
   id: string;
   slug: string;
@@ -37,6 +39,9 @@ type Row = {
   grades: string[];
   feature: string;
   applications: string[];
+  image_url: string;
+  images: string[];
+  docs: DocItem[];
   sort_order: number;
 };
 
@@ -48,6 +53,9 @@ const empty: Omit<Row, "id"> = {
   grades: [],
   feature: "",
   applications: [],
+  image_url: "",
+  images: [],
+  docs: [],
   sort_order: 0,
 };
 
