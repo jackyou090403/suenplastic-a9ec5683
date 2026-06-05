@@ -40,7 +40,7 @@ export const ui = {
     zh: { zh: "中", en: "中" },
   },
   home: {
-    badge: { zh: "十大国际品牌正品授权代理", en: "10 Global Brands · Authorized Distributor" },
+    badge: { zh: "厦门塑恩贸易有限公司", en: "10 Global Brands · Authorized Distributor" },
     h1Line1: { zh: "工程塑料原料", en: "Engineering Plastics" },
     h1Line2: { zh: "一站式供应商", en: "One-Stop Supplier" },
     intro: {
