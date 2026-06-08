@@ -22,7 +22,7 @@ const productSchema = z.object({
   sort_order: z.number().int().optional(),
 });
 
-async function assertAdmin(supabase: any, userId: string) {
+async function assertAdmin(userId: string) {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data, error } = await supabaseAdmin
     .from("user_roles")
@@ -39,7 +39,7 @@ export const upsertProduct = createServerFn({ method: "POST" })
   .inputValidator((input) => productSchema.parse(input))
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
-    await assertAdmin(supabase, userId);
+    await assertAdmin(userId);
     const { error, data: row } = await supabase
       .from("products")
       .upsert(data, { onConflict: "slug" })
@@ -54,7 +54,7 @@ export const deleteProduct = createServerFn({ method: "POST" })
   .inputValidator((input) => z.object({ id: z.string().uuid() }).parse(input))
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
-    await assertAdmin(supabase, userId);
+    await assertAdmin(userId);
     const { error } = await supabase.from("products").delete().eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
@@ -70,7 +70,7 @@ export const bulkImportProducts = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
-    await assertAdmin(supabase, userId);
+    await assertAdmin(userId);
     const q =
       data.mode === "upsert"
         ? supabase.from("products").upsert(data.rows, { onConflict: "slug" })
