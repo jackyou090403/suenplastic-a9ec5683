@@ -1,7 +1,6 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
-  
   tanstackStart: {
     spa: {
       enabled: true,
@@ -9,23 +8,6 @@ export default defineConfig({
         enabled: false,
       },
     },
-    pages: [
-      { path: "/" },
-      { path: "/products" },
-      { path: "/brands" },
-      { path: "/applications" },
-      { path: "/about" },
-      { path: "/contact" },
-      { path: "/inquiry" },
-      { path: "/auth" },
-      { path: "/admin" },
-      { path: "/en" },
-      { path: "/en/products" },
-      { path: "/en/brands" },
-      { path: "/en/applications" },
-      { path: "/en/about" },
-      { path: "/en/contact" },
-      { path: "/en/inquiry" },
-    ],
+    pages: [],
   },
 });
