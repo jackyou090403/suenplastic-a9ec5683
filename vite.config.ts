@@ -19,8 +19,6 @@ export default defineConfig({
       { path: "/about" },
       { path: "/contact" },
       { path: "/inquiry" },
-      { path: "/auth" },
-      { path: "/admin" },
       { path: "/en" },
       { path: "/en/products" },
       { path: "/en/brands" },
