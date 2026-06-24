@@ -6,9 +6,7 @@ export default defineConfig({
     spa: {
       enabled: true,
       prerender: {
-        enabled: true,
-        crawlLinks: true,
-        retryCount: 2,
+        enabled: false,
       },
     },
     pages: [
