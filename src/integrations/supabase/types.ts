@@ -14,56 +14,294 @@ export type Database = {
   }
   public: {
     Tables: {
-      products: {
+      brands: {
         Row: {
-          applications: string[]
-          brand: string
+          code: string
+          country: string
           created_at: string
-          docs: Json
-          feature: string
-          grades: string[]
+          description: string
           id: string
-          image_url: string
-          images: Json
-          material: string
-          series: string
-          slug: string
+          logo_url: string
+          name: string
           sort_order: number
           updated_at: string
         }
         Insert: {
-          applications?: string[]
-          brand: string
+          code: string
+          country?: string
           created_at?: string
-          docs?: Json
-          feature?: string
-          grades?: string[]
+          description?: string
           id?: string
-          image_url?: string
-          images?: Json
-          material?: string
-          series?: string
-          slug: string
+          logo_url?: string
+          name: string
           sort_order?: number
           updated_at?: string
         }
         Update: {
-          applications?: string[]
-          brand?: string
+          code?: string
+          country?: string
           created_at?: string
-          docs?: Json
-          feature?: string
-          grades?: string[]
+          description?: string
           id?: string
-          image_url?: string
-          images?: Json
-          material?: string
-          series?: string
-          slug?: string
+          logo_url?: string
+          name?: string
           sort_order?: number
           updated_at?: string
         }
         Relationships: []
+      }
+      inquiries: {
+        Row: {
+          company: string
+          country: string
+          created_at: string
+          email: string
+          id: string
+          ip_address: string
+          message: string
+          name: string
+          phone: string
+          product_id: string | null
+          product_slug: string
+          source: string
+          status: string
+          updated_at: string
+          user_agent: string
+        }
+        Insert: {
+          company?: string
+          country?: string
+          created_at?: string
+          email: string
+          id?: string
+          ip_address?: string
+          message?: string
+          name: string
+          phone?: string
+          product_id?: string | null
+          product_slug?: string
+          source?: string
+          status?: string
+          updated_at?: string
+          user_agent?: string
+        }
+        Update: {
+          company?: string
+          country?: string
+          created_at?: string
+          email?: string
+          id?: string
+          ip_address?: string
+          message?: string
+          name?: string
+          phone?: string
+          product_id?: string | null
+          product_slug?: string
+          source?: string
+          status?: string
+          updated_at?: string
+          user_agent?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inquiries_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      material_categories: {
+        Row: {
+          code: string
+          created_at: string
+          description: string
+          id: string
+          name_en: string
+          name_zh: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          description?: string
+          id?: string
+          name_en: string
+          name_zh: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          description?: string
+          id?: string
+          name_en?: string
+          name_zh?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      product_properties: {
+        Row: {
+          created_at: string
+          density: number | null
+          elongation: number | null
+          flexural_modulus: number | null
+          heat_deflection_temperature: number | null
+          id: string
+          impact_strength: number | null
+          melt_flow_index: number | null
+          notes: string
+          product_id: string
+          tensile_strength: number | null
+          ul94_rating: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          density?: number | null
+          elongation?: number | null
+          flexural_modulus?: number | null
+          heat_deflection_temperature?: number | null
+          id?: string
+          impact_strength?: number | null
+          melt_flow_index?: number | null
+          notes?: string
+          product_id: string
+          tensile_strength?: number | null
+          ul94_rating?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          density?: number | null
+          elongation?: number | null
+          flexural_modulus?: number | null
+          heat_deflection_temperature?: number | null
+          id?: string
+          impact_strength?: number | null
+          melt_flow_index?: number | null
+          notes?: string
+          product_id?: string
+          tensile_strength?: number | null
+          ul94_rating?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_properties_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: true
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          applications: string[]
+          brand: string
+          brand_id: string | null
+          created_at: string
+          datasheet_url: string
+          description_en: string
+          description_zh: string
+          docs: Json
+          feature: string
+          flame_retardant: boolean
+          food_contact: boolean
+          grades: string[]
+          high_flow: boolean
+          high_temperature: boolean
+          id: string
+          image_url: string
+          images: Json
+          material: string
+          material_category_id: string | null
+          model: string
+          series: string
+          slug: string
+          sort_order: number
+          transparent: boolean
+          updated_at: string
+          wear_resistance: boolean
+        }
+        Insert: {
+          applications?: string[]
+          brand: string
+          brand_id?: string | null
+          created_at?: string
+          datasheet_url?: string
+          description_en?: string
+          description_zh?: string
+          docs?: Json
+          feature?: string
+          flame_retardant?: boolean
+          food_contact?: boolean
+          grades?: string[]
+          high_flow?: boolean
+          high_temperature?: boolean
+          id?: string
+          image_url?: string
+          images?: Json
+          material?: string
+          material_category_id?: string | null
+          model?: string
+          series?: string
+          slug: string
+          sort_order?: number
+          transparent?: boolean
+          updated_at?: string
+          wear_resistance?: boolean
+        }
+        Update: {
+          applications?: string[]
+          brand?: string
+          brand_id?: string | null
+          created_at?: string
+          datasheet_url?: string
+          description_en?: string
+          description_zh?: string
+          docs?: Json
+          feature?: string
+          flame_retardant?: boolean
+          food_contact?: boolean
+          grades?: string[]
+          high_flow?: boolean
+          high_temperature?: boolean
+          id?: string
+          image_url?: string
+          images?: Json
+          material?: string
+          material_category_id?: string | null
+          model?: string
+          series?: string
+          slug?: string
+          sort_order?: number
+          transparent?: boolean
+          updated_at?: string
+          wear_resistance?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_brand_id_fkey"
+            columns: ["brand_id"]
+            isOneToOne: false
+            referencedRelation: "brands"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "products_material_category_id_fkey"
+            columns: ["material_category_id"]
+            isOneToOne: false
+            referencedRelation: "material_categories"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
