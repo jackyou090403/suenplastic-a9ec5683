@@ -145,6 +145,199 @@ export type Database = {
         }
         Relationships: []
       }
+      physical_properties: {
+        Row: {
+          display_order: number
+          grade_id: string
+          id: string
+          property_name: string
+          property_name_zh: string
+          test_method: string
+          unit: string
+          value: string
+        }
+        Insert: {
+          display_order?: number
+          grade_id: string
+          id?: string
+          property_name: string
+          property_name_zh?: string
+          test_method?: string
+          unit?: string
+          value?: string
+        }
+        Update: {
+          display_order?: number
+          grade_id?: string
+          id?: string
+          property_name?: string
+          property_name_zh?: string
+          test_method?: string
+          unit?: string
+          value?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "physical_properties_grade_id_fkey"
+            columns: ["grade_id"]
+            isOneToOne: false
+            referencedRelation: "product_grades"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      product_documents: {
+        Row: {
+          created_at: string
+          document_name: string
+          document_type: string
+          grade_id: string
+          id: string
+          language: string
+          public_url: string
+          storage_path: string
+        }
+        Insert: {
+          created_at?: string
+          document_name: string
+          document_type?: string
+          grade_id: string
+          id?: string
+          language?: string
+          public_url?: string
+          storage_path?: string
+        }
+        Update: {
+          created_at?: string
+          document_name?: string
+          document_type?: string
+          grade_id?: string
+          id?: string
+          language?: string
+          public_url?: string
+          storage_path?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_documents_grade_id_fkey"
+            columns: ["grade_id"]
+            isOneToOne: false
+            referencedRelation: "product_grades"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      product_grades: {
+        Row: {
+          application_en: string
+          application_zh: string
+          applications: Json
+          brand_id: string | null
+          brand_name: string
+          created_at: string
+          description_en: string
+          description_zh: string
+          features: Json
+          focus_en: string
+          focus_zh: string
+          grade_code: string
+          grade_name: string
+          id: string
+          is_active: boolean
+          key_features: Json
+          material: string
+          material_full_en: string
+          material_full_zh: string
+          meta_description_en: string
+          meta_description_zh: string
+          performance: Json
+          product_id: string | null
+          series_name: string
+          series_slug: string
+          slug: string
+          subtitle_en: string
+          subtitle_zh: string
+          updated_at: string
+        }
+        Insert: {
+          application_en?: string
+          application_zh?: string
+          applications?: Json
+          brand_id?: string | null
+          brand_name?: string
+          created_at?: string
+          description_en?: string
+          description_zh?: string
+          features?: Json
+          focus_en?: string
+          focus_zh?: string
+          grade_code: string
+          grade_name?: string
+          id?: string
+          is_active?: boolean
+          key_features?: Json
+          material?: string
+          material_full_en?: string
+          material_full_zh?: string
+          meta_description_en?: string
+          meta_description_zh?: string
+          performance?: Json
+          product_id?: string | null
+          series_name?: string
+          series_slug: string
+          slug: string
+          subtitle_en?: string
+          subtitle_zh?: string
+          updated_at?: string
+        }
+        Update: {
+          application_en?: string
+          application_zh?: string
+          applications?: Json
+          brand_id?: string | null
+          brand_name?: string
+          created_at?: string
+          description_en?: string
+          description_zh?: string
+          features?: Json
+          focus_en?: string
+          focus_zh?: string
+          grade_code?: string
+          grade_name?: string
+          id?: string
+          is_active?: boolean
+          key_features?: Json
+          material?: string
+          material_full_en?: string
+          material_full_zh?: string
+          meta_description_en?: string
+          meta_description_zh?: string
+          performance?: Json
+          product_id?: string | null
+          series_name?: string
+          series_slug?: string
+          slug?: string
+          subtitle_en?: string
+          subtitle_zh?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_grades_brand_id_fkey"
+            columns: ["brand_id"]
+            isOneToOne: false
+            referencedRelation: "brands"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "product_grades_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       product_properties: {
         Row: {
           created_at: string
