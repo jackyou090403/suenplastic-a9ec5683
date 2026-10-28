@@ -185,7 +185,7 @@ function processRows(lang: Lang): Row[] {
 // ============ Main page ============
 export function ProductDetailPage() {
   const lang = useLang();
-  const { slug } = Route.useLoaderData();
+  const { slug } = useParams({ strict: false }) as { slug: string };
   const p = getProduct(slug, lang)!;
   const brand = getBrand(p.brand, lang)!;
   const company = getCompany(lang);

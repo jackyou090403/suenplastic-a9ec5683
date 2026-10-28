@@ -72,7 +72,7 @@ function NotFound() {
 
 export function BrandDetailPage() {
   const lang = useLang();
-  const { slug } = Route.useLoaderData();
+  const { slug } = useParams({ strict: false }) as { slug: string };
   const brand = getBrand(slug, lang)!;
   const detail = getBrandDetail(slug, lang);
   const list = listProducts(lang).filter((p) => p.brand === brand.slug);
