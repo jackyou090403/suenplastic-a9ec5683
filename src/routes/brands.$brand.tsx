@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useParams } from "@tanstack/react-router";
 import { Layout, PageHeader } from "@/components/site/Layout";
 import { CheckCircle2, MapPin, Calendar, Layers, Factory } from "lucide-react";
 import { useLang, ui, getBrand, getBrandDetail, listProducts, lp, type Lang } from "@/i18n";
@@ -72,7 +72,7 @@ function NotFound() {
 
 export function BrandDetailPage() {
   const lang = useLang();
-  const { slug } = Route.useLoaderData();
+  const { brand: slug } = useParams({ strict: false }) as { brand: string };
   const brand = getBrand(slug, lang)!;
   const detail = getBrandDetail(slug, lang);
   const list = listProducts(lang).filter((p) => p.brand === brand.slug);

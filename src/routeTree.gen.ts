@@ -9,69 +9,38 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as SitemapShardDotxmlRouteImport } from './routes/sitemap-$shard[.]xml'
-import { Route as ProductsRouteImport } from './routes/products'
-import { Route as InquiryRouteImport } from './routes/inquiry'
-import { Route as EnRouteImport } from './routes/en'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as ApplicationsRouteImport } from './routes/applications'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as EnIndexRouteImport } from './routes/en.index'
-import { Route as BrandsIndexRouteImport } from './routes/brands.index'
-import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
-import { Route as EnProductsRouteImport } from './routes/en.products'
-import { Route as EnInquiryRouteImport } from './routes/en.inquiry'
-import { Route as EnContactRouteImport } from './routes/en.contact'
-import { Route as EnApplicationsRouteImport } from './routes/en.applications'
-import { Route as EnAboutRouteImport } from './routes/en.about'
-import { Route as BrandsBrandRouteImport } from './routes/brands.$brand'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ApplicationsRouteImport } from './routes/applications'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as EnRouteImport } from './routes/en'
+import { Route as InquiryRouteImport } from './routes/inquiry'
+import { Route as ProductsRouteImport } from './routes/products'
+import { Route as SitemapShardDotxmlRouteImport } from './routes/sitemap-$shard[.]xml'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as BrandsIndexRouteImport } from './routes/brands.index'
+import { Route as BrandsBrandRouteImport } from './routes/brands.$brand'
+import { Route as EnIndexRouteImport } from './routes/en.index'
+import { Route as EnAboutRouteImport } from './routes/en.about'
+import { Route as EnApplicationsRouteImport } from './routes/en.applications'
+import { Route as EnContactRouteImport } from './routes/en.contact'
+import { Route as EnInquiryRouteImport } from './routes/en.inquiry'
+import { Route as EnProductsRouteImport } from './routes/en.products'
+import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
 import { Route as EnBrandsIndexRouteImport } from './routes/en.brands.index'
-import { Route as EnProductsSlugRouteImport } from './routes/en.products.$slug'
 import { Route as EnBrandsBrandRouteImport } from './routes/en.brands.$brand'
+import { Route as EnProductsSlugRouteImport } from './routes/en.products.$slug'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SitemapShardDotxmlRoute = SitemapShardDotxmlRouteImport.update({
-  id: '/sitemap-$shard.xml',
-  path: '/sitemap-$shard.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProductsRoute = ProductsRouteImport.update({
-  id: '/products',
-  path: '/products',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InquiryRoute = InquiryRouteImport.update({
-  id: '/inquiry',
-  path: '/inquiry',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EnRoute = EnRouteImport.update({
-  id: '/en',
-  path: '/en',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApplicationsRoute = ApplicationsRouteImport.update({
-  id: '/applications',
-  path: '/applications',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -79,58 +48,44 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EnIndexRoute = EnIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => EnRoute,
-} as any)
-const BrandsIndexRoute = BrandsIndexRouteImport.update({
-  id: '/brands/',
-  path: '/brands/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProductsSlugRoute = ProductsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => ProductsRoute,
-} as any)
-const EnProductsRoute = EnProductsRouteImport.update({
-  id: '/products',
-  path: '/products',
-  getParentRoute: () => EnRoute,
-} as any)
-const EnInquiryRoute = EnInquiryRouteImport.update({
-  id: '/inquiry',
-  path: '/inquiry',
-  getParentRoute: () => EnRoute,
-} as any)
-const EnContactRoute = EnContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => EnRoute,
-} as any)
-const EnApplicationsRoute = EnApplicationsRouteImport.update({
+const ApplicationsRoute = ApplicationsRouteImport.update({
   id: '/applications',
   path: '/applications',
-  getParentRoute: () => EnRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-const EnAboutRoute = EnAboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => EnRoute,
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const BrandsBrandRoute = BrandsBrandRouteImport.update({
-  id: '/brands/$brand',
-  path: '/brands/$brand',
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnRoute = EnRouteImport.update({
+  id: '/en',
+  path: '/en',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InquiryRoute = InquiryRouteImport.update({
+  id: '/inquiry',
+  path: '/inquiry',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsRoute = ProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapShardDotxmlRoute = SitemapShardDotxmlRouteImport.update({
+  id: '/sitemap-$shard.xml',
+  path: '/sitemap-$shard.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
@@ -138,20 +93,65 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const BrandsIndexRoute = BrandsIndexRouteImport.update({
+  id: '/brands/',
+  path: '/brands/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrandsBrandRoute = BrandsBrandRouteImport.update({
+  id: '/brands/$brand',
+  path: '/brands/$brand',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnIndexRoute = EnIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnAboutRoute = EnAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnApplicationsRoute = EnApplicationsRouteImport.update({
+  id: '/applications',
+  path: '/applications',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnContactRoute = EnContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnInquiryRoute = EnInquiryRouteImport.update({
+  id: '/inquiry',
+  path: '/inquiry',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnProductsRoute = EnProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => EnRoute,
+} as any)
+const ProductsSlugRoute = ProductsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ProductsRoute,
+} as any)
 const EnBrandsIndexRoute = EnBrandsIndexRouteImport.update({
   id: '/brands/',
   path: '/brands/',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnBrandsBrandRoute = EnBrandsBrandRouteImport.update({
+  id: '/brands/$brand',
+  path: '/brands/$brand',
   getParentRoute: () => EnRoute,
 } as any)
 const EnProductsSlugRoute = EnProductsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => EnProductsRoute,
-} as any)
-const EnBrandsBrandRoute = EnBrandsBrandRouteImport.update({
-  id: '/brands/$brand',
-  path: '/brands/$brand',
-  getParentRoute: () => EnRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -326,67 +326,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap-$shard.xml': {
-      id: '/sitemap-$shard.xml'
-      path: '/sitemap-$shard.xml'
-      fullPath: '/sitemap-$shard.xml'
-      preLoaderRoute: typeof SitemapShardDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/products': {
-      id: '/products'
-      path: '/products'
-      fullPath: '/products'
-      preLoaderRoute: typeof ProductsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/inquiry': {
-      id: '/inquiry'
-      path: '/inquiry'
-      fullPath: '/inquiry'
-      preLoaderRoute: typeof InquiryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/en': {
-      id: '/en'
-      path: '/en'
-      fullPath: '/en'
-      preLoaderRoute: typeof EnRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/applications': {
-      id: '/applications'
-      path: '/applications'
-      fullPath: '/applications'
-      preLoaderRoute: typeof ApplicationsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -396,74 +340,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/en/': {
-      id: '/en/'
-      path: '/'
-      fullPath: '/en/'
-      preLoaderRoute: typeof EnIndexRouteImport
-      parentRoute: typeof EnRoute
-    }
-    '/brands/': {
-      id: '/brands/'
-      path: '/brands'
-      fullPath: '/brands/'
-      preLoaderRoute: typeof BrandsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/products/$slug': {
-      id: '/products/$slug'
-      path: '/$slug'
-      fullPath: '/products/$slug'
-      preLoaderRoute: typeof ProductsSlugRouteImport
-      parentRoute: typeof ProductsRoute
-    }
-    '/en/products': {
-      id: '/en/products'
-      path: '/products'
-      fullPath: '/en/products'
-      preLoaderRoute: typeof EnProductsRouteImport
-      parentRoute: typeof EnRoute
-    }
-    '/en/inquiry': {
-      id: '/en/inquiry'
-      path: '/inquiry'
-      fullPath: '/en/inquiry'
-      preLoaderRoute: typeof EnInquiryRouteImport
-      parentRoute: typeof EnRoute
-    }
-    '/en/contact': {
-      id: '/en/contact'
-      path: '/contact'
-      fullPath: '/en/contact'
-      preLoaderRoute: typeof EnContactRouteImport
-      parentRoute: typeof EnRoute
-    }
-    '/en/applications': {
-      id: '/en/applications'
-      path: '/applications'
-      fullPath: '/en/applications'
-      preLoaderRoute: typeof EnApplicationsRouteImport
-      parentRoute: typeof EnRoute
-    }
-    '/en/about': {
-      id: '/en/about'
+    '/about': {
+      id: '/about'
       path: '/about'
-      fullPath: '/en/about'
-      preLoaderRoute: typeof EnAboutRouteImport
-      parentRoute: typeof EnRoute
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/brands/$brand': {
-      id: '/brands/$brand'
-      path: '/brands/$brand'
-      fullPath: '/brands/$brand'
-      preLoaderRoute: typeof BrandsBrandRouteImport
+    '/applications': {
+      id: '/applications'
+      path: '/applications'
+      fullPath: '/applications'
+      preLoaderRoute: typeof ApplicationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en': {
+      id: '/en'
+      path: '/en'
+      fullPath: '/en'
+      preLoaderRoute: typeof EnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inquiry': {
+      id: '/inquiry'
+      path: '/inquiry'
+      fullPath: '/inquiry'
+      preLoaderRoute: typeof InquiryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap-$shard.xml': {
+      id: '/sitemap-$shard.xml'
+      path: '/sitemap-$shard.xml'
+      fullPath: '/sitemap-$shard.xml'
+      preLoaderRoute: typeof SitemapShardDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
@@ -473,11 +410,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/brands/': {
+      id: '/brands/'
+      path: '/brands'
+      fullPath: '/brands/'
+      preLoaderRoute: typeof BrandsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brands/$brand': {
+      id: '/brands/$brand'
+      path: '/brands/$brand'
+      fullPath: '/brands/$brand'
+      preLoaderRoute: typeof BrandsBrandRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/': {
+      id: '/en/'
+      path: '/'
+      fullPath: '/en/'
+      preLoaderRoute: typeof EnIndexRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/about': {
+      id: '/en/about'
+      path: '/about'
+      fullPath: '/en/about'
+      preLoaderRoute: typeof EnAboutRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/applications': {
+      id: '/en/applications'
+      path: '/applications'
+      fullPath: '/en/applications'
+      preLoaderRoute: typeof EnApplicationsRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/contact': {
+      id: '/en/contact'
+      path: '/contact'
+      fullPath: '/en/contact'
+      preLoaderRoute: typeof EnContactRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/inquiry': {
+      id: '/en/inquiry'
+      path: '/inquiry'
+      fullPath: '/en/inquiry'
+      preLoaderRoute: typeof EnInquiryRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/products': {
+      id: '/en/products'
+      path: '/products'
+      fullPath: '/en/products'
+      preLoaderRoute: typeof EnProductsRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/products/$slug': {
+      id: '/products/$slug'
+      path: '/$slug'
+      fullPath: '/products/$slug'
+      preLoaderRoute: typeof ProductsSlugRouteImport
+      parentRoute: typeof ProductsRoute
+    }
     '/en/brands/': {
       id: '/en/brands/'
       path: '/brands'
       fullPath: '/en/brands/'
       preLoaderRoute: typeof EnBrandsIndexRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/brands/$brand': {
+      id: '/en/brands/$brand'
+      path: '/brands/$brand'
+      fullPath: '/en/brands/$brand'
+      preLoaderRoute: typeof EnBrandsBrandRouteImport
       parentRoute: typeof EnRoute
     }
     '/en/products/$slug': {
@@ -486,13 +493,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/en/products/$slug'
       preLoaderRoute: typeof EnProductsSlugRouteImport
       parentRoute: typeof EnProductsRoute
-    }
-    '/en/brands/$brand': {
-      id: '/en/brands/$brand'
-      path: '/brands/$brand'
-      fullPath: '/en/brands/$brand'
-      preLoaderRoute: typeof EnBrandsBrandRouteImport
-      parentRoute: typeof EnRoute
     }
   }
 }
@@ -574,3 +574,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
