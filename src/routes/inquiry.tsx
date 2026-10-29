@@ -42,7 +42,7 @@ export function InquiryPage() {
   const [done, setDone] = useState(false);
   const q = useRouterState({ select: (s) => s.location.search as Record<string, unknown> });
   const qs = (k: string) => (typeof q?.[k] === "string" ? (q[k] as string) : "");
-  const prefBrand = brands.find((b) => b.name.toLowerCase().includes(qs("brand").toLowerCase()) && qs("brand"))?.name ?? "";
+  const prefBrand = brands.find((b) => b.slug === qs("brand"))?.name ?? "";
   const prefMat = materials.find((m) => m.code === qs("material"));
   const prefGrade = [qs("series"), qs("grade")].filter(Boolean).join(" ");
   return (
