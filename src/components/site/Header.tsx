@@ -1,3 +1,4 @@
+import { useRouterState } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, Phone, Globe } from "lucide-react";
@@ -18,7 +19,10 @@ export function Header() {
   ];
 
   // language switch target: swap /en prefix
-  const otherLangHref = lang === "zh" ? "/en" : "/";
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const otherLangHref = lang === "zh"
+    ? (pathname === "/" ? "/en" : "/en" + pathname)
+    : (pathname.replace(/^\/en(?=\/|$)/, "") || "/");
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/85 backdrop-blur-lg">

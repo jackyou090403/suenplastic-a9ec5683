@@ -33,6 +33,8 @@ import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
 import { Route as EnBrandsIndexRouteImport } from './routes/en.brands.index'
 import { Route as EnBrandsBrandRouteImport } from './routes/en.brands.$brand'
 import { Route as EnProductsSlugRouteImport } from './routes/en.products.$slug'
+import { Route as ProductsSlugGradeRouteImport } from './routes/products.$slug_.$grade'
+import { Route as EnProductsSlugGradeRouteImport } from './routes/en.products.$slug_.$grade'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -153,6 +155,16 @@ const EnProductsSlugRoute = EnProductsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => EnProductsRoute,
 } as any)
+const ProductsSlugGradeRoute = ProductsSlugGradeRouteImport.update({
+  id: '/$slug_/$grade',
+  path: '/$slug/$grade',
+  getParentRoute: () => ProductsRoute,
+} as any)
+const EnProductsSlugGradeRoute = EnProductsSlugGradeRouteImport.update({
+  id: '/$slug_/$grade',
+  path: '/$slug/$grade',
+  getParentRoute: () => EnProductsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -177,7 +189,9 @@ export interface FileRoutesByFullPath {
   '/en/': typeof EnIndexRoute
   '/en/brands/$brand': typeof EnBrandsBrandRoute
   '/en/products/$slug': typeof EnProductsSlugRoute
+  '/products/$slug/$grade': typeof ProductsSlugGradeRoute
   '/en/brands/': typeof EnBrandsIndexRoute
+  '/en/products/$slug/$grade': typeof EnProductsSlugGradeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -201,7 +215,9 @@ export interface FileRoutesByTo {
   '/en': typeof EnIndexRoute
   '/en/brands/$brand': typeof EnBrandsBrandRoute
   '/en/products/$slug': typeof EnProductsSlugRoute
+  '/products/$slug/$grade': typeof ProductsSlugGradeRoute
   '/en/brands': typeof EnBrandsIndexRoute
+  '/en/products/$slug/$grade': typeof EnProductsSlugGradeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -228,7 +244,9 @@ export interface FileRoutesById {
   '/en/': typeof EnIndexRoute
   '/en/brands/$brand': typeof EnBrandsBrandRoute
   '/en/products/$slug': typeof EnProductsSlugRoute
+  '/products/$slug_/$grade': typeof ProductsSlugGradeRoute
   '/en/brands/': typeof EnBrandsIndexRoute
+  '/en/products/$slug_/$grade': typeof EnProductsSlugGradeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -255,7 +273,9 @@ export interface FileRouteTypes {
     | '/en/'
     | '/en/brands/$brand'
     | '/en/products/$slug'
+    | '/products/$slug/$grade'
     | '/en/brands/'
+    | '/en/products/$slug/$grade'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -279,7 +299,9 @@ export interface FileRouteTypes {
     | '/en'
     | '/en/brands/$brand'
     | '/en/products/$slug'
+    | '/products/$slug/$grade'
     | '/en/brands'
+    | '/en/products/$slug/$grade'
   id:
     | '__root__'
     | '/'
@@ -305,7 +327,9 @@ export interface FileRouteTypes {
     | '/en/'
     | '/en/brands/$brand'
     | '/en/products/$slug'
+    | '/products/$slug_/$grade'
     | '/en/brands/'
+    | '/en/products/$slug_/$grade'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -494,6 +518,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnProductsSlugRouteImport
       parentRoute: typeof EnProductsRoute
     }
+    '/products/$slug_/$grade': {
+      id: '/products/$slug_/$grade'
+      path: '/$slug/$grade'
+      fullPath: '/products/$slug/$grade'
+      preLoaderRoute: typeof ProductsSlugGradeRouteImport
+      parentRoute: typeof ProductsRoute
+    }
+    '/en/products/$slug_/$grade': {
+      id: '/en/products/$slug_/$grade'
+      path: '/$slug/$grade'
+      fullPath: '/en/products/$slug/$grade'
+      preLoaderRoute: typeof EnProductsSlugGradeRouteImport
+      parentRoute: typeof EnProductsRoute
+    }
   }
 }
 
@@ -510,10 +548,12 @@ const AuthenticatedRouteRouteWithChildren =
 
 interface EnProductsRouteChildren {
   EnProductsSlugRoute: typeof EnProductsSlugRoute
+  EnProductsSlugGradeRoute: typeof EnProductsSlugGradeRoute
 }
 
 const EnProductsRouteChildren: EnProductsRouteChildren = {
   EnProductsSlugRoute: EnProductsSlugRoute,
+  EnProductsSlugGradeRoute: EnProductsSlugGradeRoute,
 }
 
 const EnProductsRouteWithChildren = EnProductsRoute._addFileChildren(
@@ -546,10 +586,12 @@ const EnRouteWithChildren = EnRoute._addFileChildren(EnRouteChildren)
 
 interface ProductsRouteChildren {
   ProductsSlugRoute: typeof ProductsSlugRoute
+  ProductsSlugGradeRoute: typeof ProductsSlugGradeRoute
 }
 
 const ProductsRouteChildren: ProductsRouteChildren = {
   ProductsSlugRoute: ProductsSlugRoute,
+  ProductsSlugGradeRoute: ProductsSlugGradeRoute,
 }
 
 const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
