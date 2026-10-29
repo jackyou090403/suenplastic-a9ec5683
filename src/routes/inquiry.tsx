@@ -1,3 +1,4 @@
+import { useRouterState } from "@tanstack/react-router";
 import { createFileRoute } from "@tanstack/react-router";
 import { Layout, PageHeader } from "@/components/site/Layout";
 import { useState } from "react";
@@ -39,6 +40,11 @@ export function InquiryPage() {
   const materials = listMaterials(lang);
   const company = getCompany(lang);
   const [done, setDone] = useState(false);
+  const q = useRouterState({ select: (s) => s.location.search as Record<string, unknown> });
+  const qs = (k: string) => (typeof q?.[k] === "string" ? (q[k] as string) : "");
+  const prefBrand = brands.find((b) => b.name.toLowerCase().includes(qs("brand").toLowerCase()) && qs("brand"))?.name ?? "";
+  const prefMat = materials.find((m) => m.code === qs("material"));
+  const prefGrade = [qs("series"), qs("grade")].filter(Boolean).join(" ");
   return (
     <Layout>
       <PageHeader kicker="Inquiry" title={ui.page.inquiryTitle[lang]} desc={ui.page.inquiryDesc[lang]} />
@@ -60,18 +66,18 @@ export function InquiryPage() {
                   <Field label={ui.inquiry.mobile[lang]} required><input required type="tel" className={inputCls} placeholder={ui.inquiry.placeholders.mobile[lang]} /></Field>
                   <Field label={ui.inquiry.emailLabel[lang]}><input type="email" className={inputCls} placeholder={ui.inquiry.placeholders.email[lang]} /></Field>
                   <Field label={ui.inquiry.brand[lang]}>
-                    <select className={inputCls}>
+                    <select key={prefBrand} defaultValue={prefBrand} className={inputCls}>
                       <option value="">{ui.inquiry.any[lang]}</option>
                       {brands.map((b) => <option key={b.slug}>{b.name}</option>)}
                     </select>
                   </Field>
                   <Field label={ui.inquiry.material[lang]}>
-                    <select className={inputCls}>
+                    <select key={prefMat?.code} defaultValue={prefMat ? `${prefMat.code} ${prefMat.name}` : ""} className={inputCls}>
                       <option value="">{ui.inquiry.any[lang]}</option>
                       {materials.map((m) => <option key={m.code}>{m.code} {m.name}</option>)}
                     </select>
                   </Field>
-                  <Field label={ui.inquiry.grade[lang]}><input className={inputCls} placeholder={ui.inquiry.placeholders.grade[lang]} /></Field>
+                  <Field label={ui.inquiry.grade[lang]}><input key={prefGrade} defaultValue={prefGrade} className={inputCls} placeholder={ui.inquiry.placeholders.grade[lang]} /></Field>
                   <Field label={ui.inquiry.monthly[lang]}><input className={inputCls} placeholder={ui.inquiry.placeholders.monthly[lang]} /></Field>
                 </div>
                 <Field label={ui.inquiry.app[lang]}>
